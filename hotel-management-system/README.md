@@ -32,3 +32,7 @@
    - Сотрудники
    - Номера
    - Цены
+
+## Схема классов
+
+![image](https://github.com/DontelCardem54/OOP-second-term/blob/creating-an-outline/hotel-management-system/source/hotel_managment_system_class_diagram_1.0.png)
