@@ -83,9 +83,55 @@ bool имя_тестовой_функции() {
 
 #pragma region TvectorTests
 bool tvector_def_init() {
-    TVector<int> expected_result;
     TVector<int> actual_result;
-    std::cout << TVector<int>(3) << "hell" << std::endl;
+    TVector<int> expected_result;
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_size_init() {
+    TVector<int> actual_result(5);
+    TVector<int> expected_result(5, 0);
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_initialize_list_init() {
+    TVector<int> actual_result = { 1, 1, 1, 1, 1 };
+    TVector<int> expected_result(5, 1);
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_data() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    int actual_result = *vec.data();
+    int expected_result = 1;
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_size() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    int actual_result = vec.size();
+    int expected_result = 5;
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_capacity() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    int actual_result = vec.capacity();
+    int expected_result = 15;
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_front() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    int actual_result = vec.front();
+    int expected_result = 1;
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_back() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    int actual_result = vec.back();
+    int expected_result = 5;
 
     return TestSystem::check(expected_result, actual_result);
 }
@@ -94,6 +140,13 @@ bool tvector_def_init() {
 int main() {
     TestSystem::print_init_info();
     TestSystem::start_test(tvector_def_init, "def_init");
+    TestSystem::start_test(tvector_size_init, "size_init");
+    TestSystem::start_test(tvector_initialize_list_init, "initialize_list_init");
+    TestSystem::start_test(tvector_data, "get_data");
+    TestSystem::start_test(tvector_size, "get_size");
+    TestSystem::start_test(tvector_capacity, "get_capacity");
+    TestSystem::start_test(tvector_front, "get_front");
+    TestSystem::start_test(tvector_back, "get_back");
     TestSystem::print_final_info();
     return 0;
 }
