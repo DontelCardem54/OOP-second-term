@@ -85,6 +85,7 @@ bool имя_тестовой_функции() {
 bool tvector_def_init() {
     TVector<int> expected_result;
     TVector<int> actual_result;
+    std::cout << TVector<int>(3) << "hell" << std::endl;
 
     return TestSystem::check(expected_result, actual_result);
 }
