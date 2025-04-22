@@ -135,6 +135,27 @@ bool tvector_back() {
 
     return TestSystem::check(expected_result, actual_result);
 }
+bool tvector_push_back() {
+    TVector<int> actual_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+    actual_result.push_back(16);
+    TVector<int> expected_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_push_front() {
+    TVector<int> actual_result = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    actual_result.push_front(1);
+    TVector<int> expected_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
+    return TestSystem::check(expected_result, actual_result);
+}
+bool tvector_insert() {
+    TVector<int> actual_result = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    actual_result.insert(actual_result.begin() + 2, 12);
+    TVector<int> expected_result = { 2, 3, 12, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
+    return TestSystem::check(expected_result, actual_result);
+}
 #pragma endregion
 
 int main() {
@@ -147,6 +168,9 @@ int main() {
     TestSystem::start_test(tvector_capacity, "get_capacity");
     TestSystem::start_test(tvector_front, "get_front");
     TestSystem::start_test(tvector_back, "get_back");
+    TestSystem::start_test(tvector_push_back, "push_back");
+    TestSystem::start_test(tvector_push_front, "push_front");
+    TestSystem::start_test(tvector_insert, "insert");
     TestSystem::print_final_info();
     return 0;
 }
