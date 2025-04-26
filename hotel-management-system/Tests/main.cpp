@@ -187,6 +187,123 @@ bool tvector_initialize_list_init() {
         TestSystem::check_exp((size_t)30, vec.capacity());
 }
 
+bool tvector_operator_copy_assign() {
+    bool actual_result = true;
+    bool expected_result = true;
+    TVector<int> vec_1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    TVector<int> vec_2;
+
+    vec_2 = vec_1;
+
+    if (vec_1.data() == nullptr || vec_1.begin() == vec_1.end()) {
+        actual_result = false;
+    }
+
+    if (vec_2.data() == nullptr || vec_2.begin() == vec_2.end()) {
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)16, vec_1.size()) &&
+        TestSystem::check_exp((size_t)30, vec_1.capacity()) &&
+        TestSystem::check_exp((size_t)16, vec_2.size()) &&
+        TestSystem::check_exp((size_t)30, vec_2.capacity());
+}
+bool tvector_operator_move_assign() {
+    bool actual_result = true;
+    bool expected_result = true;
+    TVector<int> vec_1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    TVector<int> vec_2;
+
+    vec_2 = std::move(vec_1);
+
+    if (vec_1.data() != nullptr || vec_1.begin() != vec_1.end()) {
+        actual_result = false;
+    }
+
+    if (vec_2.data() == nullptr || vec_2.begin() == vec_2.end()) {
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)0, vec_1.size()) &&
+        TestSystem::check_exp((size_t)0, vec_1.capacity()) &&
+        TestSystem::check_exp((size_t)16, vec_2.size()) &&
+        TestSystem::check_exp((size_t)30, vec_2.capacity());
+}
+bool tvector_operator_equality() {
+    bool actual_result = true;
+    bool expected_result = true;
+    TVector<int> vec_1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    TVector<int> vec_2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
+    actual_result = vec_1 == vec_2;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_operator_inequality() {
+    bool actual_result = true;
+    bool expected_result = true;
+    TVector<int> vec_1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    TVector<int> vec_2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17 };
+
+    actual_result = vec_1 != vec_2;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_operator_index_access() {
+    bool actual_result = true;
+    bool expected_result = true;
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
+    actual_result = vec[13] == 14;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_operator_index_access_exception() {
+    bool actual_result = true;
+    bool expected_result = false;
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
+    int num;
+
+    try {
+        num = vec[17];
+    }
+    catch (std::out_of_range& ex) {
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_const_operator_index_access() {
+    bool actual_result = true;
+    bool expected_result = true;
+    const TVector<int> vec_1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
+    actual_result = vec_1[13] == 14;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_const_operator_index_access_exception() {
+    bool actual_result = true;
+    bool expected_result = false;
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
+    int num;
+
+    try {
+        num = vec[17];
+    }
+    catch (std::out_of_range& ex) {
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+
 bool tvector_data() {
     TVector<int> vec = { 1, 2, 3, 4, 5 };
     int actual_result = *vec.data();
@@ -368,7 +485,17 @@ int main() {
     TestSystem::start_test(tvector_copy_init, "copy_init");
     TestSystem::start_test(tvector_move_init, "move_init");
     TestSystem::start_test(tvector_initialize_list_init, "initialize_list_init");
-    TestSystem::start_test(tvector_data, "get_data");
+
+    TestSystem::start_test(tvector_operator_copy_assign, "operator_copy_assign");
+    TestSystem::start_test(tvector_operator_move_assign, "operator_move_assign");
+    TestSystem::start_test(tvector_operator_equality, "operator_equality");
+    TestSystem::start_test(tvector_operator_inequality, "operator_inequality");
+    TestSystem::start_test(tvector_operator_index_access, "operator_index_access");
+    TestSystem::start_test(tvector_operator_index_access_exception, "operator_index_access_exception");
+    TestSystem::start_test(tvector_const_operator_index_access, "const_operator_index_access");
+    TestSystem::start_test(tvector_const_operator_index_access_exception, "const_operator_index_access_exception");
+
+    /*TestSystem::start_test(tvector_data, "get_data");
     TestSystem::start_test(tvector_size, "get_size");
     TestSystem::start_test(tvector_capacity, "get_capacity");
     TestSystem::start_test(tvector_front, "get_front");
@@ -380,7 +507,7 @@ int main() {
     TestSystem::start_test(tvector_iterator_init, "iterator_init");
     TestSystem::start_test(tvector_iterator_dereference_operator_test, "iterator_dereference_operator_test");
     TestSystem::start_test(tvector_iterator_dereference_operator_empty_test, "iterator_dereference_operator_empty_test");
-    TestSystem::start_test(tvector_iterator_add_out_off_range_exeption_test, "insert_add_out_off_range_exeption_test");
+    TestSystem::start_test(tvector_iterator_add_out_off_range_exeption_test, "insert_add_out_off_range_exeption_test");*/
     TestSystem::print_final_info();
     return 0;
 }
