@@ -252,11 +252,9 @@ bool tvector_operator_inequality() {
     return TestSystem::check_exp(expected_result, actual_result);
 }
 bool tvector_operator_index_access() {
-    bool actual_result = true;
-    bool expected_result = true;
-    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-
-    actual_result = vec[13] == 14;
+    const TVector<int> vec_1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    int actual_result = vec_1[13];
+    int expected_result = 14;
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
@@ -278,11 +276,9 @@ bool tvector_operator_index_access_exception() {
     return TestSystem::check_exp(expected_result, actual_result);
 }
 bool tvector_const_operator_index_access() {
-    bool actual_result = true;
-    bool expected_result = true;
     const TVector<int> vec_1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-
-    actual_result = vec_1[13] == 14;
+    int actual_result = vec_1[13];
+    int expected_result = 14;
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
@@ -291,10 +287,8 @@ bool tvector_const_operator_index_access_exception() {
     bool expected_result = false;
     TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 
-    int num;
-
     try {
-        num = vec[17];
+        int num = vec[17];
     }
     catch (std::out_of_range& ex) {
         std::cerr << "Exception caught: " << ex.what() << std::endl;
@@ -305,7 +299,14 @@ bool tvector_const_operator_index_access_exception() {
 }
 
 bool tvector_data() {
-    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    const TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    int actual_result = *vec.data();
+    int expected_result = 1;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_const_data() {
+    const TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
     int actual_result = *vec.data();
     int expected_result = 1;
 
@@ -339,6 +340,24 @@ bool tvector_back() {
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
+bool tvector_begin() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    TVector<int>::Iterator it = vec.begin();
+
+    int actual_result = *it;
+    int expected_result = 1;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_end() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    TVector<int>::Iterator it = vec.end();
+
+    int actual_result = *(it-1);
+    int expected_result = 16;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
 
 bool tvector_push_back() {
     TVector<int> actual_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
@@ -361,7 +380,6 @@ bool tvector_insert() {
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
-
 bool tvector_pop_back() {
     TVector<int> actual_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
     
@@ -375,12 +393,8 @@ bool tvector_iterator_init() {
     bool actual_result = true;
     bool expected_result = true;
 
-    try {
-        TVector<int>::Iterator it = vec.begin();
-    }
-    catch (const std::exception& ex) {
+    if (*vec.begin() != 1) {
         actual_result = false;
-        std::cerr << "Exception caught: " << ex.what() << std::endl;
     }
 
     return TestSystem::check_exp(expected_result, actual_result);
@@ -438,35 +452,88 @@ bool tvector_iterator_dereference_operator_empty_test() {
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
+bool tvector_iterator_arrow_operator_test() {
+    TVector<int> vect(1, 5);
+    TVector<TVector<int>> vec(1, vect);
+    bool actual_result = true;
+    bool expected_result = true;
 
-//bool tvector_iterator_arrow_operator_test() {
-//    TVector<int> vect(1, 5);
-//    TVector<TVector<int>> vec(1);
-//    vec.push_back(vect);
-//    bool actual_result = true;
-//    bool expected_result = true;
-//
-//    try {
-//        if (vec.begin()->front() != 1) {
-//            actual_result = false;
-//            std::cerr << "operator-> returned wrong pointer." << std::endl;
-//        }
-//    }
-//    catch (const std::exception& ex) {
-//        std::cerr << "Exception caught: " << ex.what() << std::endl;
-//        actual_result = false;
-//    }
-//
-//    return TestSystem::check_exp(expected_result, actual_result);
-//}
+    try {
+        if (vec.begin()->front() != 5) {
+            actual_result = false;
+            std::cerr << "operator-> returned wrong pointer." << vec.begin()->size() << std::endl;
+        }
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+        actual_result = false;
+    }
 
-bool tvector_iterator_add_out_off_range_exeption_test() {
-    TVector<int> vect = { 1, 2, 3, 4, 5 };
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_assign() {
+    bool actual_result = true;
+    bool expected_result = true;
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    TVector<int>::Iterator it_1 = vec.begin();
+    //it_1 = vec.end();
+
+    if (*it_1 != 1) {
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_left_increment() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    int actual_result = *(++vec.begin());
+    int expected_result = 2;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_right_increment() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    int actual_result = *(vec.begin()++);
+    int expected_result = 1;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_left_decrement() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    int actual_result = *(--vec.end());
+    int expected_result = 16;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_right_decrement() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    int actual_result = *((vec.end()-1)--);
+    int expected_result = 16;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_add() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    int actual_result = *(vec.begin() + 2);
+    int expected_result = 3;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_add_out_off_range_exeption() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
     bool actual_result = true;
     bool expected_result = false;
 
     try {
-        vect.begin() + 6;
+        vec.begin() + 6;
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }
+
+    try {
+        actual_result = true;
+        vec.begin() + (-1);
     }
     catch (const std::exception& ex) {
         actual_result = false;
@@ -475,7 +542,120 @@ bool tvector_iterator_add_out_off_range_exeption_test() {
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
+bool tvector_iterator_sub() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    int actual_result = *(vec.end() - 2);
+    int expected_result = 4;
 
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_sub_out_off_range_exeption() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    bool actual_result = true;
+    bool expected_result = false;
+
+    try {
+        vec.end() - 6;
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }
+
+    try {
+        actual_result = true;
+        vec.end() - (-1);
+    }
+    catch (const std::exception& ex) {
+        actual_result = false;
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_add_assign() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    TVector<int>::Iterator bg = vec.begin();
+    bool actual_result = true;
+    bool expected_result = true;
+
+    if (*bg != 1)
+        actual_result = false;
+
+    bg += 2;
+
+    if (*bg != 3)
+        actual_result = false;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_add_assign_out_off_range_exeption() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    TVector<int>::Iterator bg = vec.begin();
+    bool actual_result = true;
+    bool expected_result = false;
+
+    try {
+        //bg = vec.begin();
+        bg += 6;
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }
+
+    /*try {
+        actual_result = true;
+        bg = vec.begin();
+        bg += (-1);
+    }
+    catch (const std::exception& ex) {
+        actual_result = false;
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }*/
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_sub_assign() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    TVector<int>::Iterator ed = vec.end();
+    bool actual_result = true;
+    bool expected_result = true;
+
+    if (*(ed - 1) != 5)
+        actual_result = false;
+
+    ed -= 3;
+
+    if (*ed != 3)
+        actual_result = false;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+//bool tvector_iterator_sub_assign_out_off_range_exeption() {
+//    TVector<int> vec = { 1, 2, 3, 4, 5 };
+//    TVector<int>::Iterator ed = vec.end();
+//    bool actual_result = true;
+//    bool expected_result = false;
+//
+//    try {
+//        ed = vec.end();
+//        ed -= 6;
+//    }
+//    catch (const std::exception& ex) {
+//        std::cerr << "Exception caught: " << ex.what() << std::endl;
+//    }
+//
+//    try {
+//        actual_result = true;
+//        ed = vec.end();
+//        ed -= (-1);
+//    }
+//    catch (const std::exception& ex) {
+//        actual_result = false;
+//        std::cerr << "Exception caught: " << ex.what() << std::endl;
+//    }
+//
+//    return TestSystem::check_exp(expected_result, actual_result);
+//}
 #pragma endregion
 
 int main() {
@@ -495,19 +675,36 @@ int main() {
     TestSystem::start_test(tvector_const_operator_index_access, "const_operator_index_access");
     TestSystem::start_test(tvector_const_operator_index_access_exception, "const_operator_index_access_exception");
 
-    /*TestSystem::start_test(tvector_data, "get_data");
+    TestSystem::start_test(tvector_data, "get_data");
+    TestSystem::start_test(tvector_const_data, "get_const_data");
     TestSystem::start_test(tvector_size, "get_size");
     TestSystem::start_test(tvector_capacity, "get_capacity");
     TestSystem::start_test(tvector_front, "get_front");
     TestSystem::start_test(tvector_back, "get_back");
-    TestSystem::start_test(tvector_push_back, "push_back");
-    TestSystem::start_test(tvector_push_front, "push_front");
-    TestSystem::start_test(tvector_insert, "insert");
-    TestSystem::start_test(tvector_pop_back, "pop_back");
+    TestSystem::start_test(tvector_begin, "begin");
+    TestSystem::start_test(tvector_end, "end");
+
     TestSystem::start_test(tvector_iterator_init, "iterator_init");
     TestSystem::start_test(tvector_iterator_dereference_operator_test, "iterator_dereference_operator_test");
     TestSystem::start_test(tvector_iterator_dereference_operator_empty_test, "iterator_dereference_operator_empty_test");
-    TestSystem::start_test(tvector_iterator_add_out_off_range_exeption_test, "insert_add_out_off_range_exeption_test");*/
+    TestSystem::start_test(tvector_iterator_arrow_operator_test, "iterator_arrow");
+    TestSystem::start_test(tvector_iterator_assign, "iterator_assign");
+    TestSystem::start_test(tvector_iterator_right_increment, "iterator_right_increment");
+    TestSystem::start_test(tvector_iterator_left_increment, "iterator_left_increment");
+    TestSystem::start_test(tvector_iterator_right_decrement, "iterator_right_decrement");
+    TestSystem::start_test(tvector_iterator_left_decrement, "iterator_left_decrement");
+    TestSystem::start_test(tvector_iterator_add, "iterator_add");
+    TestSystem::start_test(tvector_iterator_add_out_off_range_exeption, "insert_add_out_off_range_exeption");
+    TestSystem::start_test(tvector_iterator_sub, "iterator_sub");
+    TestSystem::start_test(tvector_iterator_sub_out_off_range_exeption, "insert_sub_out_off_range_exeption");
+    TestSystem::start_test(tvector_iterator_add_assign, "iterator_add_assign");
+    //TestSystem::start_test(tvector_iterator_add_assign_out_off_range_exeption, "iterator_add_asiign_out_off_range_exeption");
+    TestSystem::start_test(tvector_iterator_sub_assign, "iterator_sub_assign");
+    //TestSystem::start_test(tvector_iterator_sub_assign_out_off_range_exeption, "iterator_sub_asiign_out_off_range_exeption");
+    /*TestSystem::start_test(tvector_push_back, "push_back");
+    TestSystem::start_test(tvector_push_front, "push_front");
+    TestSystem::start_test(tvector_insert, "insert");
+    TestSystem::start_test(tvector_pop_back, "pop_back");*/
     TestSystem::print_final_info();
     return 0;
 }
