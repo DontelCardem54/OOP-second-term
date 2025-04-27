@@ -173,6 +173,20 @@ bool tvector_move_init() {
         TestSystem::check_exp((size_t)25, vec_2.size()) &&
         TestSystem::check_exp((size_t)30, vec_2.capacity());
 }
+bool tvector_array_init() {
+    bool actual_result = true;
+    bool expected_result = true;
+    int* array = new int[16] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    TVector<int> vec(array, 16);
+
+    if (vec.data() == nullptr || vec.begin() == vec.end()) {
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)16, vec.size()) &&
+        TestSystem::check_exp((size_t)30, vec.capacity());
+}
 bool tvector_initialize_list_init() {
     bool actual_result = true;
     bool expected_result = true;
@@ -381,11 +395,61 @@ bool tvector_insert() {
     return TestSystem::check_exp(expected_result, actual_result);
 }
 bool tvector_pop_back() {
-    TVector<int> actual_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-    
-    TVector<int> expected_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+    TVector<int> actual_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
+    TVector<int> expected_result = { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
 
-    return TestSystem::check_exp(expected_result, actual_result);
+    actual_result.pop_front();
+    actual_result.pop_back();
+    actual_result.pop_back();
+    actual_result.pop_front();
+    actual_result.pop_back();
+    actual_result.pop_front();
+    actual_result.pop_back();
+    actual_result.pop_back();
+    actual_result.pop_back();
+    actual_result.pop_back();
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)21, actual_result.size()) &&
+        TestSystem::check_exp((size_t)30, actual_result.capacity());
+}
+bool tvector_erase() {
+    TVector<int> actual_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
+    TVector<int> expected_result = { 3, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 };
+
+    actual_result.erase(actual_result.begin());
+    actual_result.erase(actual_result.end() - 1);
+    actual_result.erase(actual_result.begin());
+    actual_result.erase(actual_result.end() - 1);
+    actual_result.erase(actual_result.begin() + 4);
+    actual_result.erase(actual_result.begin() + 11);
+    actual_result.erase(actual_result.begin() + 7);
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)24, actual_result.size()) &&
+        TestSystem::check_exp((size_t)30, actual_result.capacity());
+}
+
+bool tvector_test() {
+    TVector<int> actual_result = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 };
+    TVector<int> expected_result = { 2, 3, 4, 5, 7, 8, 9, 11, 222, 12, 13, 14, 15, 16, 18, 20, 21, 333, 22, 23, 24, 25, 26, 27, 28, 30, 31, 111, 32, 33, 34, 35 };
+    
+    
+    actual_result.pop_back();
+    actual_result.pop_front();
+    actual_result.erase(actual_result.begin() + 8);
+    actual_result.erase(actual_result.begin() + 4);
+    actual_result.erase(actual_result.begin() + 25);
+    actual_result.erase(actual_result.begin() + 15);
+    actual_result.erase(actual_result.begin() + 13);
+    actual_result.insert(actual_result.begin() + 25, 111);
+    actual_result.insert(actual_result.begin() + 8, 222);
+    actual_result.insert(actual_result.begin() + 17, 333);
+
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)32, actual_result.size()) &&
+        TestSystem::check_exp((size_t)45, actual_result.capacity());
 }
 
 bool tvector_iterator_init() {
@@ -399,7 +463,7 @@ bool tvector_iterator_init() {
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
-bool tvector_iterator_dereference_operator_test() {
+bool tvector_iterator_dereference_operator() {
     TVector<int> vec = { 1, 2, 3, 4, 5 };
     bool actual_result = true;
     bool expected_result = true;
@@ -433,26 +497,39 @@ bool tvector_iterator_dereference_operator_test() {
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
-bool tvector_iterator_dereference_operator_empty_test() {
+bool tvector_iterator_dereference_operator_empty() {
     TVector<int> vec;
     bool actual_result = true;
     bool expected_result = false;
 
     try {
-        TVector<int>::Iterator it = vec.begin();
-        if (it == vec.end()) {
-            throw std::out_of_range("Cannot dereference end iterator of empty vector");
-        }
+        TVector<int>::Iterator it = vec.end();
         int value = *it;
     }
     catch (const std::exception& ex) {
         actual_result = false;
-        std::cerr << "Caught expected exception: " << ex.what() << std::endl;
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
     }
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
-bool tvector_iterator_arrow_operator_test() {
+bool tvector_iterator_dereference_operator_out_of_range() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    bool actual_result = true;
+    bool expected_result = false;
+
+    try {
+        TVector<int>::Iterator it = vec.end();
+        int value = *it;
+    }
+    catch (const std::exception& ex) {
+        actual_result = false;
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_arrow_operator() {
     TVector<int> vect(1, 5);
     TVector<TVector<int>> vec(1, vect);
     bool actual_result = true;
@@ -475,8 +552,8 @@ bool tvector_iterator_assign() {
     bool actual_result = true;
     bool expected_result = true;
     TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-    TVector<int>::Iterator it_1 = vec.begin();
-    //it_1 = vec.end();
+    TVector<int>::Iterator it_1 = vec.end();
+    it_1 = vec.begin();
 
     if (*it_1 != 1) {
         actual_result = false;
@@ -595,14 +672,14 @@ bool tvector_iterator_add_assign_out_off_range_exeption() {
     bool expected_result = false;
 
     try {
-        //bg = vec.begin();
+        bg = vec.begin();
         bg += 6;
     }
     catch (const std::exception& ex) {
         std::cerr << "Exception caught: " << ex.what() << std::endl;
     }
 
-    /*try {
+    try {
         actual_result = true;
         bg = vec.begin();
         bg += (-1);
@@ -610,7 +687,7 @@ bool tvector_iterator_add_assign_out_off_range_exeption() {
     catch (const std::exception& ex) {
         actual_result = false;
         std::cerr << "Exception caught: " << ex.what() << std::endl;
-    }*/
+    }
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
@@ -630,32 +707,170 @@ bool tvector_iterator_sub_assign() {
 
     return TestSystem::check_exp(expected_result, actual_result);
 }
-//bool tvector_iterator_sub_assign_out_off_range_exeption() {
-//    TVector<int> vec = { 1, 2, 3, 4, 5 };
-//    TVector<int>::Iterator ed = vec.end();
-//    bool actual_result = true;
-//    bool expected_result = false;
-//
-//    try {
-//        ed = vec.end();
-//        ed -= 6;
-//    }
-//    catch (const std::exception& ex) {
-//        std::cerr << "Exception caught: " << ex.what() << std::endl;
-//    }
-//
-//    try {
-//        actual_result = true;
-//        ed = vec.end();
-//        ed -= (-1);
-//    }
-//    catch (const std::exception& ex) {
-//        actual_result = false;
-//        std::cerr << "Exception caught: " << ex.what() << std::endl;
-//    }
-//
-//    return TestSystem::check_exp(expected_result, actual_result);
-//}
+bool tvector_iterator_sub_assign_out_off_range_exeption() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    TVector<int>::Iterator ed = vec.end();
+    bool actual_result = true;
+    bool expected_result = false;
+
+    try {
+        ed = vec.end();
+        ed -= 6;
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }
+
+    try {
+        actual_result = true;
+        ed = vec.end();
+        ed -= (-1);
+    }
+    catch (const std::exception& ex) {
+        actual_result = false;
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_operator_equality() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+
+    TVector<int>::Iterator it_1 = vec.begin();
+    TVector<int>::Iterator it_2 = vec.begin();
+
+    bool actual_result = it_1 == it_2;
+    bool expected_result = true;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_operator_inequality() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+
+    TVector<int>::Iterator it_1 = vec.begin();
+    TVector<int>::Iterator it_2 = vec.end();
+
+    bool actual_result = it_1 != it_2;
+    bool expected_result = true;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+bool tvector_iterator_operator_iterator_difference() {
+    TVector<int> vec = { 1, 2, 3, 4, 5 };
+    vec.pop_front();
+    TVector<int>::Iterator it_1 = vec.begin();
+    TVector<int>::Iterator it_2 = vec.end();
+
+    int actual_result = it_2 - it_1;
+    int expected_result = 4;
+
+    return TestSystem::check_exp(expected_result, actual_result);
+}
+
+bool tvector_clear() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    vec.clear();
+    bool actual_result = true;
+    bool expected_result = true;
+
+    if (vec.data() == nullptr || vec.begin() != vec.end()) {
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)0, vec.size()) &&
+        TestSystem::check_exp((size_t)15, vec.capacity());
+}
+bool tvector_shrink_to_fit() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    vec.shrink_to_fit();
+    bool actual_result = true;
+    bool expected_result = true;
+
+    if (vec.data() == nullptr || vec.begin() == vec.end()) {
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)16, vec.size()) &&
+        TestSystem::check_exp((size_t)16, vec.capacity());
+}
+bool tvector_resize_1() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 };
+
+    vec.pop_back();
+    vec.pop_front();
+    vec.erase(vec.begin() + 8);
+    vec.erase(vec.begin() + 4);
+    vec.erase(vec.begin() + 25);
+    vec.erase(vec.begin() + 15);
+    vec.erase(vec.begin() + 13);
+    vec.insert(vec.begin() + 25, 111);
+    vec.insert(vec.begin() + 8, 222);
+    vec.insert(vec.begin() + 17, 333);
+    vec.resize(32);
+    bool actual_result = true;
+    bool expected_result = true;
+
+    if (vec.data() == nullptr || vec.begin() == vec.end()) {
+        actual_result = false;
+    }
+
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)32, vec.size()) &&
+        TestSystem::check_exp((size_t)45, vec.capacity());
+}
+bool tvector_resize_2() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 };
+
+    vec.pop_back();
+    vec.pop_front();
+    vec.erase(vec.begin() + 8);
+    vec.erase(vec.begin() + 4);
+    vec.erase(vec.begin() + 25);
+    vec.erase(vec.begin() + 15);
+    vec.erase(vec.begin() + 13);
+    vec.insert(vec.begin() + 25, 111);
+    vec.insert(vec.begin() + 8, 222);
+    vec.insert(vec.begin() + 17, 333);
+    vec.resize(25);
+    bool actual_result = true;
+    bool expected_result = true;
+
+    if (vec.data() == nullptr || vec.begin() == vec.end()) {
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)25, vec.size()) &&
+        TestSystem::check_exp((size_t)30, vec.capacity());
+}
+bool tvector_resize_3() {
+    TVector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 };
+
+    vec.pop_back();
+    vec.pop_front();
+    vec.erase(vec.begin() + 8);
+    vec.erase(vec.begin() + 4);
+    vec.erase(vec.begin() + 25);
+    vec.erase(vec.begin() + 15);
+    vec.erase(vec.begin() + 13);
+    vec.insert(vec.begin() + 25, 111);
+    vec.insert(vec.begin() + 8, 222);
+    vec.insert(vec.begin() + 17, 333);
+    vec.resize(5);
+    bool actual_result = true;
+    bool expected_result = true;
+
+    if (vec.data() == nullptr || vec.begin() == vec.end()) {
+        actual_result = false;
+    }
+
+    return TestSystem::check_exp(expected_result, actual_result) &&
+        TestSystem::check_exp((size_t)5, vec.size()) &&
+        TestSystem::check_exp((size_t)15, vec.capacity());
+}
 #pragma endregion
 
 int main() {
@@ -664,6 +879,7 @@ int main() {
     TestSystem::start_test(tvector_size_init, "size_init");
     TestSystem::start_test(tvector_copy_init, "copy_init");
     TestSystem::start_test(tvector_move_init, "move_init");
+    TestSystem::start_test(tvector_array_init, "array_init");
     TestSystem::start_test(tvector_initialize_list_init, "initialize_list_init");
 
     TestSystem::start_test(tvector_operator_copy_assign, "operator_copy_assign");
@@ -685,9 +901,10 @@ int main() {
     TestSystem::start_test(tvector_end, "end");
 
     TestSystem::start_test(tvector_iterator_init, "iterator_init");
-    TestSystem::start_test(tvector_iterator_dereference_operator_test, "iterator_dereference_operator_test");
-    TestSystem::start_test(tvector_iterator_dereference_operator_empty_test, "iterator_dereference_operator_empty_test");
-    TestSystem::start_test(tvector_iterator_arrow_operator_test, "iterator_arrow");
+    TestSystem::start_test(tvector_iterator_dereference_operator, "iterator_dereference_operator");
+    TestSystem::start_test(tvector_iterator_dereference_operator_empty, "iterator_dereference_operator_empty");
+    TestSystem::start_test(tvector_iterator_dereference_operator_out_of_range, "iterator_dereference_operator_out_of_range");
+    TestSystem::start_test(tvector_iterator_arrow_operator, "iterator_arrow");
     TestSystem::start_test(tvector_iterator_assign, "iterator_assign");
     TestSystem::start_test(tvector_iterator_right_increment, "iterator_right_increment");
     TestSystem::start_test(tvector_iterator_left_increment, "iterator_left_increment");
@@ -698,13 +915,26 @@ int main() {
     TestSystem::start_test(tvector_iterator_sub, "iterator_sub");
     TestSystem::start_test(tvector_iterator_sub_out_off_range_exeption, "insert_sub_out_off_range_exeption");
     TestSystem::start_test(tvector_iterator_add_assign, "iterator_add_assign");
-    //TestSystem::start_test(tvector_iterator_add_assign_out_off_range_exeption, "iterator_add_asiign_out_off_range_exeption");
+    TestSystem::start_test(tvector_iterator_add_assign_out_off_range_exeption, "iterator_add_asiign_out_off_range_exeption");
     TestSystem::start_test(tvector_iterator_sub_assign, "iterator_sub_assign");
-    //TestSystem::start_test(tvector_iterator_sub_assign_out_off_range_exeption, "iterator_sub_asiign_out_off_range_exeption");
+    TestSystem::start_test(tvector_iterator_sub_assign_out_off_range_exeption, "iterator_sub_asiign_out_off_range_exeption");
+    TestSystem::start_test(tvector_iterator_operator_equality, "iterator_operator_equality");
+    TestSystem::start_test(tvector_iterator_operator_inequality, "iterator_operator_inequality");
+    TestSystem::start_test(tvector_iterator_operator_iterator_difference, "iterator_operator_iterator_difference");
+
+    TestSystem::start_test(tvector_pop_back, "pop_back");
+    TestSystem::start_test(tvector_erase, "erase");
+
+    TestSystem::start_test(tvector_clear, "clear");
+    TestSystem::start_test(tvector_shrink_to_fit, "shrink_to_fit");
+    TestSystem::start_test(tvector_resize_1, "resize_1");
+    TestSystem::start_test(tvector_resize_2, "resize_2");
+    TestSystem::start_test(tvector_resize_3, "resize_3");
     /*TestSystem::start_test(tvector_push_back, "push_back");
     TestSystem::start_test(tvector_push_front, "push_front");
-    TestSystem::start_test(tvector_insert, "insert");
-    TestSystem::start_test(tvector_pop_back, "pop_back");*/
+    TestSystem::start_test(tvector_insert, "insert");*/
+
+    TestSystem::start_test(tvector_test, "test");
     TestSystem::print_final_info();
     return 0;
 }
