@@ -9,6 +9,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TVector", "TVector\TVector.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{CDF2ED52-649B-4EF0-B930-0DC1FC406C22}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hotel_UI", "Hotel_UI\Hotel_UI.vcxproj", "{55362B2E-F413-456F-B8AB-62BB9495BE2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6786E387-BB17-4DF4-9CCD-F1B9CC65735E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +48,14 @@ Global
 		{CDF2ED52-649B-4EF0-B930-0DC1FC406C22}.Release|x64.Build.0 = Release|x64
 		{CDF2ED52-649B-4EF0-B930-0DC1FC406C22}.Release|x86.ActiveCfg = Release|Win32
 		{CDF2ED52-649B-4EF0-B930-0DC1FC406C22}.Release|x86.Build.0 = Release|Win32
+		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Debug|x64.ActiveCfg = Debug|x64
+		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Debug|x64.Build.0 = Debug|x64
+		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Debug|x86.ActiveCfg = Debug|Win32
+		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Debug|x86.Build.0 = Debug|Win32
+		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Release|x64.ActiveCfg = Release|x64
+		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Release|x64.Build.0 = Release|x64
+		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Release|x86.ActiveCfg = Release|Win32
+		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
