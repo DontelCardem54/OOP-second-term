@@ -13,15 +13,15 @@ namespace CppCLRWinFormsProject {
     using namespace System::Drawing;
 
     /// <summary>
-    /// Summary for SearchRoomForm
+    /// Summary for SearchBookingForm
     /// </summary>
-    public ref class SearchRoomForm : public System::Windows::Forms::Form
+    public ref class SearchBookingForm : public System::Windows::Forms::Form
     {
     private:
         Hotel* _hotel;
 
     public:
-        SearchRoomForm(Hotel* hotel) : _hotel(hotel)
+        SearchBookingForm(Hotel* hotel) : _hotel(hotel)
         {
             InitializeComponent();
             //
@@ -33,16 +33,20 @@ namespace CppCLRWinFormsProject {
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        ~SearchRoomForm()
+        ~SearchBookingForm()
         {
             if (components)
             {
                 delete components;
             }
         }
-    private: System::Windows::Forms::Label^ category_label;
-    private: System::Windows::Forms::Label^ beds_count_label;
-    private: System::Windows::Forms::Label^ state_label;
+    private: System::Windows::Forms::Label^ start_date_label;
+    private: System::Windows::Forms::Label^ end_date_label;
+    private: System::Windows::Forms::Label^ guest_passport_label;
+    protected:
+
+
+
     protected:
 
 
@@ -51,12 +55,15 @@ namespace CppCLRWinFormsProject {
     private: System::Windows::Forms::Button^ saerch_button;
     private: System::Windows::Forms::Button^ back_button;
     private: System::Windows::Forms::FlowLayoutPanel^ search_result_panel;
-    private: System::Windows::Forms::ComboBox^ category_combo_box;
-    private: System::Windows::Forms::ComboBox^ beds_count_combo_box;
-    private: System::Windows::Forms::ComboBox^ state_combo_box;
+
+
+
     private: System::Windows::Forms::Label^ room_number_label;
 
     private: System::Windows::Forms::ComboBox^ room_number_combo_box;
+    private: System::Windows::Forms::TextBox^ start_date_text_box;
+    private: System::Windows::Forms::TextBox^ end_date_text_box;
+    private: System::Windows::Forms::TextBox^ guest_passport_text_box;
 
     protected:
 
@@ -73,45 +80,45 @@ namespace CppCLRWinFormsProject {
         /// </summary>
         void InitializeComponent(void)
         {
-            this->category_label = (gcnew System::Windows::Forms::Label());
-            this->beds_count_label = (gcnew System::Windows::Forms::Label());
-            this->state_label = (gcnew System::Windows::Forms::Label());
+            this->start_date_label = (gcnew System::Windows::Forms::Label());
+            this->end_date_label = (gcnew System::Windows::Forms::Label());
+            this->guest_passport_label = (gcnew System::Windows::Forms::Label());
             this->saerch_button = (gcnew System::Windows::Forms::Button());
             this->back_button = (gcnew System::Windows::Forms::Button());
             this->search_result_panel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-            this->category_combo_box = (gcnew System::Windows::Forms::ComboBox());
-            this->beds_count_combo_box = (gcnew System::Windows::Forms::ComboBox());
-            this->state_combo_box = (gcnew System::Windows::Forms::ComboBox());
             this->room_number_label = (gcnew System::Windows::Forms::Label());
             this->room_number_combo_box = (gcnew System::Windows::Forms::ComboBox());
+            this->start_date_text_box = (gcnew System::Windows::Forms::TextBox());
+            this->end_date_text_box = (gcnew System::Windows::Forms::TextBox());
+            this->guest_passport_text_box = (gcnew System::Windows::Forms::TextBox());
             this->SuspendLayout();
             // 
-            // category_label
+            // start_date_label
             // 
-            this->category_label->AutoSize = true;
-            this->category_label->Location = System::Drawing::Point(28, 40);
-            this->category_label->Name = L"category_label";
-            this->category_label->Size = System::Drawing::Size(66, 13);
-            this->category_label->TabIndex = 0;
-            this->category_label->Text = L"Категория: ";
+            this->start_date_label->AutoSize = true;
+            this->start_date_label->Location = System::Drawing::Point(28, 40);
+            this->start_date_label->Name = L"start_date_label";
+            this->start_date_label->Size = System::Drawing::Size(56, 13);
+            this->start_date_label->TabIndex = 0;
+            this->start_date_label->Text = L"Start date:";
             // 
-            // beds_count_label
+            // end_date_label
             // 
-            this->beds_count_label->AutoSize = true;
-            this->beds_count_label->Location = System::Drawing::Point(201, 40);
-            this->beds_count_label->Name = L"beds_count_label";
-            this->beds_count_label->Size = System::Drawing::Size(122, 13);
-            this->beds_count_label->TabIndex = 1;
-            this->beds_count_label->Text = L"Количество кроватей: ";
+            this->end_date_label->AutoSize = true;
+            this->end_date_label->Location = System::Drawing::Point(201, 40);
+            this->end_date_label->Name = L"end_date_label";
+            this->end_date_label->Size = System::Drawing::Size(56, 13);
+            this->end_date_label->TabIndex = 1;
+            this->end_date_label->Text = L"End date: ";
             // 
-            // state_label
+            // guest_passport_label
             // 
-            this->state_label->AutoSize = true;
-            this->state_label->Location = System::Drawing::Point(28, 81);
-            this->state_label->Name = L"state_label";
-            this->state_label->Size = System::Drawing::Size(47, 13);
-            this->state_label->TabIndex = 2;
-            this->state_label->Text = L"Статус: ";
+            this->guest_passport_label->AutoSize = true;
+            this->guest_passport_label->Location = System::Drawing::Point(28, 81);
+            this->guest_passport_label->Name = L"guest_passport_label";
+            this->guest_passport_label->Size = System::Drawing::Size(81, 13);
+            this->guest_passport_label->TabIndex = 2;
+            this->guest_passport_label->Text = L"Guest passport:";
             // 
             // saerch_button
             // 
@@ -121,7 +128,7 @@ namespace CppCLRWinFormsProject {
             this->saerch_button->TabIndex = 3;
             this->saerch_button->Text = L"Найти";
             this->saerch_button->UseVisualStyleBackColor = true;
-            this->saerch_button->Click += gcnew System::EventHandler(this, &SearchRoomForm::saerch_button_Click);
+            this->saerch_button->Click += gcnew System::EventHandler(this, &SearchBookingForm::saerch_button_Click);
             // 
             // back_button
             // 
@@ -131,7 +138,7 @@ namespace CppCLRWinFormsProject {
             this->back_button->TabIndex = 4;
             this->back_button->Text = L"Назад";
             this->back_button->UseVisualStyleBackColor = true;
-            this->back_button->Click += gcnew System::EventHandler(this, &SearchRoomForm::back_button_Click);
+            this->back_button->Click += gcnew System::EventHandler(this, &SearchBookingForm::back_button_Click);
             // 
             // search_result_panel
             // 
@@ -141,75 +148,64 @@ namespace CppCLRWinFormsProject {
             this->search_result_panel->Size = System::Drawing::Size(357, 120);
             this->search_result_panel->TabIndex = 5;
             // 
-            // category_combo_box
-            // 
-            this->category_combo_box->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::SuggestAppend;
-            this->category_combo_box->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
-            this->category_combo_box->FormattingEnabled = true;
-            this->category_combo_box->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Стандарт", L"Люкс", L"Президентский" });
-            this->category_combo_box->Location = System::Drawing::Point(100, 37);
-            this->category_combo_box->Name = L"category_combo_box";
-            this->category_combo_box->Size = System::Drawing::Size(83, 21);
-            this->category_combo_box->TabIndex = 6;
-            // 
-            // beds_count_combo_box
-            // 
-            this->beds_count_combo_box->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::SuggestAppend;
-            this->beds_count_combo_box->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
-            this->beds_count_combo_box->FormattingEnabled = true;
-            this->beds_count_combo_box->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"1", L"2", L"3" });
-            this->beds_count_combo_box->Location = System::Drawing::Point(329, 37);
-            this->beds_count_combo_box->Name = L"beds_count_combo_box";
-            this->beds_count_combo_box->Size = System::Drawing::Size(61, 21);
-            this->beds_count_combo_box->TabIndex = 7;
-            // 
-            // state_combo_box
-            // 
-            this->state_combo_box->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::SuggestAppend;
-            this->state_combo_box->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
-            this->state_combo_box->FormattingEnabled = true;
-            this->state_combo_box->Location = System::Drawing::Point(81, 76);
-            this->state_combo_box->Name = L"state_combo_box";
-            this->state_combo_box->Size = System::Drawing::Size(73, 21);
-            this->state_combo_box->TabIndex = 8;
-            // 
             // room_number_label
             // 
             this->room_number_label->AutoSize = true;
-            this->room_number_label->Location = System::Drawing::Point(186, 81);
+            this->room_number_label->Location = System::Drawing::Point(189, 81);
             this->room_number_label->Name = L"room_number_label";
-            this->room_number_label->Size = System::Drawing::Size(47, 13);
+            this->room_number_label->Size = System::Drawing::Size(79, 13);
             this->room_number_label->TabIndex = 9;
-            this->room_number_label->Text = L"Номер: ";
+            this->room_number_label->Text = L"Room number: ";
             // 
             // room_number_combo_box
             // 
             this->room_number_combo_box->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::SuggestAppend;
             this->room_number_combo_box->AutoCompleteSource = System::Windows::Forms::AutoCompleteSource::ListItems;
             this->room_number_combo_box->FormattingEnabled = true;
-            this->room_number_combo_box->Location = System::Drawing::Point(239, 78);
+            this->room_number_combo_box->Location = System::Drawing::Point(274, 78);
             this->room_number_combo_box->Name = L"room_number_combo_box";
             this->room_number_combo_box->Size = System::Drawing::Size(64, 21);
             this->room_number_combo_box->TabIndex = 10;
             // 
-            // SearchRoomForm
+            // start_date_text_box
+            // 
+            this->start_date_text_box->Location = System::Drawing::Point(96, 39);
+            this->start_date_text_box->Name = L"start_date_text_box";
+            this->start_date_text_box->Size = System::Drawing::Size(72, 20);
+            this->start_date_text_box->TabIndex = 11;
+            // 
+            // end_date_text_box
+            // 
+            this->end_date_text_box->Location = System::Drawing::Point(261, 41);
+            this->end_date_text_box->Name = L"end_date_text_box";
+            this->end_date_text_box->Size = System::Drawing::Size(86, 20);
+            this->end_date_text_box->TabIndex = 12;
+            // 
+            // guest_passport_text_box
+            // 
+            this->guest_passport_text_box->Location = System::Drawing::Point(115, 78);
+            this->guest_passport_text_box->Name = L"guest_passport_text_box";
+            this->guest_passport_text_box->Size = System::Drawing::Size(53, 20);
+            this->guest_passport_text_box->TabIndex = 13;
+            // 
+            // SearchBookingForm
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = System::Drawing::Size(422, 304);
+            this->Controls->Add(this->guest_passport_text_box);
+            this->Controls->Add(this->end_date_text_box);
+            this->Controls->Add(this->start_date_text_box);
             this->Controls->Add(this->room_number_combo_box);
             this->Controls->Add(this->room_number_label);
-            this->Controls->Add(this->state_combo_box);
-            this->Controls->Add(this->beds_count_combo_box);
-            this->Controls->Add(this->category_combo_box);
             this->Controls->Add(this->search_result_panel);
             this->Controls->Add(this->back_button);
             this->Controls->Add(this->saerch_button);
-            this->Controls->Add(this->state_label);
-            this->Controls->Add(this->beds_count_label);
-            this->Controls->Add(this->category_label);
-            this->Name = L"SearchRoomForm";
-            this->Text = L"Поиск номера";
+            this->Controls->Add(this->guest_passport_label);
+            this->Controls->Add(this->end_date_label);
+            this->Controls->Add(this->start_date_label);
+            this->Name = L"SearchBookingForm";
+            this->Text = L"Search Booking";
             this->ResumeLayout(false);
             this->PerformLayout();
 
@@ -253,5 +249,5 @@ namespace CppCLRWinFormsProject {
     }
     private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e);
 
-};
+    };
 }

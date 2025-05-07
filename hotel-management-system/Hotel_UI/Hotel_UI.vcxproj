@@ -132,25 +132,49 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddGuestForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="AdminForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="BookingsForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="GuestForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="GuestsForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RoomForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="SearchGuestForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="SearchRoomForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddGuestForm.cpp" />
     <ClCompile Include="AdminForm.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="BookingsForm.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="GuestForm.cpp" />
+    <ClCompile Include="GuestsForm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="RoomForm.cpp" />
+    <ClCompile Include="SearchGuestForm.cpp" />
     <ClCompile Include="SearchRoomForm.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,8 +196,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddGuestForm.resx">
+      <DependentUpon>AddGuestForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookingsForm.resx">
+      <DependentUpon>BookingsForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GuestForm.resx">
+      <DependentUpon>GuestForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GuestsForm.resx">
+      <DependentUpon>GuestsForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoomForm.resx">
+      <DependentUpon>RoomForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchGuestForm.resx">
+      <DependentUpon>SearchGuestForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchRoomForm.resx">
       <DependentUpon>SearchRoomForm.h</DependentUpon>

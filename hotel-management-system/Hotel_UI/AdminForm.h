@@ -12,7 +12,7 @@ namespace CppCLRWinFormsProject {
     using namespace System::Drawing;
 
     /// <summary>
-    /// Summary for Form1
+    /// Summary for AdminForm
     /// </summary>
     public ref class AdminForm : public System::Windows::Forms::Form
     {
@@ -43,7 +43,8 @@ namespace CppCLRWinFormsProject {
     private: System::Windows::Forms::Button^ search_room_button;
     private: System::Windows::Forms::Button^ guests_button;
     private: System::Windows::Forms::Button^ bookings_button;
-    private: System::Windows::Forms::Label^ user_name_lable;
+    private: System::Windows::Forms::Label^ user_name_label;
+
 
     protected:
 
@@ -64,7 +65,7 @@ namespace CppCLRWinFormsProject {
             this->search_room_button = (gcnew System::Windows::Forms::Button());
             this->guests_button = (gcnew System::Windows::Forms::Button());
             this->bookings_button = (gcnew System::Windows::Forms::Button());
-            this->user_name_lable = (gcnew System::Windows::Forms::Label());
+            this->user_name_label = (gcnew System::Windows::Forms::Label());
             this->SuspendLayout();
             // 
             // logout_button
@@ -104,21 +105,21 @@ namespace CppCLRWinFormsProject {
             this->bookings_button->Text = L"Брони";
             this->bookings_button->UseVisualStyleBackColor = true;
             // 
-            // user_name_lable
+            // user_name_label
             // 
-            this->user_name_lable->AutoSize = true;
-            this->user_name_lable->Location = System::Drawing::Point(33, 27);
-            this->user_name_lable->Name = L"user_name_lable";
-            this->user_name_lable->Size = System::Drawing::Size(153, 13);
-            this->user_name_lable->TabIndex = 4;
-            this->user_name_lable->Text = L"Пользователь: Иванов Иван";
+            this->user_name_label->AutoSize = true;
+            this->user_name_label->Location = System::Drawing::Point(33, 27);
+            this->user_name_label->Name = L"user_name_label";
+            this->user_name_label->Size = System::Drawing::Size(153, 13);
+            this->user_name_label->TabIndex = 4;
+            this->user_name_label->Text = L"Пользователь: Иванов Иван";
             // 
             // AdminForm
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = System::Drawing::Size(226, 304);
-            this->Controls->Add(this->user_name_lable);
+            this->Controls->Add(this->user_name_label);
             this->Controls->Add(this->bookings_button);
             this->Controls->Add(this->guests_button);
             this->Controls->Add(this->search_room_button);
