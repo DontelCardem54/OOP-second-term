@@ -49,8 +49,8 @@ namespace CppCLRWinFormsProject {
 
 
 
-    private: System::Windows::Forms::TextBox^ name_text_box;
-    private: System::Windows::Forms::TextBox^ surname_text_box;
+
+
 
 
 
@@ -66,6 +66,9 @@ namespace CppCLRWinFormsProject {
     private: System::Windows::Forms::Label^ guest_label;
     private: System::Windows::Forms::Label^ staff_label;
     private: System::Windows::Forms::Label^ state_label;
+    private: System::Windows::Forms::DateTimePicker^ start_date_picker;
+    private: System::Windows::Forms::DateTimePicker^ end_date_picker;
+
 
     protected:
 
@@ -84,8 +87,6 @@ namespace CppCLRWinFormsProject {
         {
             this->start_date_label = (gcnew System::Windows::Forms::Label());
             this->end_date_label = (gcnew System::Windows::Forms::Label());
-            this->name_text_box = (gcnew System::Windows::Forms::TextBox());
-            this->surname_text_box = (gcnew System::Windows::Forms::TextBox());
             this->back_button = (gcnew System::Windows::Forms::Button());
             this->cancel_button = (gcnew System::Windows::Forms::Button());
             this->close_and_pay_button = (gcnew System::Windows::Forms::Button());
@@ -95,6 +96,8 @@ namespace CppCLRWinFormsProject {
             this->guest_label = (gcnew System::Windows::Forms::Label());
             this->staff_label = (gcnew System::Windows::Forms::Label());
             this->state_label = (gcnew System::Windows::Forms::Label());
+            this->start_date_picker = (gcnew System::Windows::Forms::DateTimePicker());
+            this->end_date_picker = (gcnew System::Windows::Forms::DateTimePicker());
             this->SuspendLayout();
             // 
             // start_date_label
@@ -114,22 +117,6 @@ namespace CppCLRWinFormsProject {
             this->end_date_label->Size = System::Drawing::Size(56, 13);
             this->end_date_label->TabIndex = 2;
             this->end_date_label->Text = L"End date: ";
-            // 
-            // name_text_box
-            // 
-            this->name_text_box->Location = System::Drawing::Point(108, 80);
-            this->name_text_box->Name = L"name_text_box";
-            this->name_text_box->ReadOnly = true;
-            this->name_text_box->Size = System::Drawing::Size(120, 20);
-            this->name_text_box->TabIndex = 6;
-            // 
-            // surname_text_box
-            // 
-            this->surname_text_box->Location = System::Drawing::Point(108, 110);
-            this->surname_text_box->Name = L"surname_text_box";
-            this->surname_text_box->ReadOnly = true;
-            this->surname_text_box->Size = System::Drawing::Size(120, 20);
-            this->surname_text_box->TabIndex = 7;
             // 
             // back_button
             // 
@@ -212,11 +199,28 @@ namespace CppCLRWinFormsProject {
             this->state_label->TabIndex = 20;
             this->state_label->Text = L"State: ";
             // 
+            // start_date_picker
+            // 
+            this->start_date_picker->Location = System::Drawing::Point(112, 74);
+            this->start_date_picker->Name = L"start_date_picker";
+            this->start_date_picker->Size = System::Drawing::Size(127, 20);
+            this->start_date_picker->TabIndex = 21;
+            this->start_date_picker->ValueChanged += gcnew System::EventHandler(this, &BookingForm::start_date_picker_ValueChanged);
+            // 
+            // end_date_picker
+            // 
+            this->end_date_picker->Location = System::Drawing::Point(112, 104);
+            this->end_date_picker->Name = L"end_date_picker";
+            this->end_date_picker->Size = System::Drawing::Size(127, 20);
+            this->end_date_picker->TabIndex = 22;
+            // 
             // BookingForm
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = System::Drawing::Size(363, 385);
+            this->Controls->Add(this->end_date_picker);
+            this->Controls->Add(this->start_date_picker);
             this->Controls->Add(this->state_label);
             this->Controls->Add(this->staff_label);
             this->Controls->Add(this->guest_label);
@@ -226,8 +230,6 @@ namespace CppCLRWinFormsProject {
             this->Controls->Add(this->close_and_pay_button);
             this->Controls->Add(this->cancel_button);
             this->Controls->Add(this->back_button);
-            this->Controls->Add(this->surname_text_box);
-            this->Controls->Add(this->name_text_box);
             this->Controls->Add(this->start_date_label);
             this->Controls->Add(this->end_date_label);
             this->Name = L"BookingForm";
@@ -253,5 +255,7 @@ private: System::Void patronymic_text_box_TextChanged(System::Object^ sender, Sy
     }
 private: System::Void patronymic_label_Click(System::Object^ sender, System::EventArgs^ e) {
     }
+private: System::Void start_date_picker_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }
