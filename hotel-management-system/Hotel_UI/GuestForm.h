@@ -1,6 +1,7 @@
 #pragma once
 
-#include "hotel.h"
+#include "iguest.h"
+#include <msclr/marshal_cppstd.h>
 
 namespace CppCLRWinFormsProject {
 
@@ -17,15 +18,15 @@ namespace CppCLRWinFormsProject {
     public ref class GuestForm : public System::Windows::Forms::Form
     {
     private:
-        Hotel* _hotel;
+        IGuest* _guest;
+        bool is_editing = false;
+        bool has_unsaved_changes = false;
 
     public:
-        GuestForm(Hotel* hotel) : _hotel(hotel)
+        GuestForm(IGuest* guest) : _guest(guest)
         {
             InitializeComponent();
-            //
-            //TODO: Add the constructor code here
-            //
+            FillForm();
         }
 
     protected:
@@ -50,13 +51,15 @@ namespace CppCLRWinFormsProject {
     private: System::Windows::Forms::TextBox^ surname_text_box;
     private: System::Windows::Forms::TextBox^ patronymic_text_box;
     private: System::Windows::Forms::TextBox^ passport_text_box;
-    private: System::Windows::Forms::TextBox^ birth_date_text_box;
+
     private: System::Windows::Forms::TextBox^ email_text_box;
     private: System::Windows::Forms::Button^ back_button;
     private: System::Windows::Forms::Button^ delete_button;
     private: System::Windows::Forms::Button^ view_booking_history_button;
     private: System::Windows::Forms::Button^ edit_mode_button;
     private: System::Windows::Forms::Button^ exit_edit_mode_button;
+    private: System::Windows::Forms::DateTimePicker^ birth_date_time_picker;
+
 
     protected:
 
@@ -83,13 +86,13 @@ namespace CppCLRWinFormsProject {
             this->surname_text_box = (gcnew System::Windows::Forms::TextBox());
             this->patronymic_text_box = (gcnew System::Windows::Forms::TextBox());
             this->passport_text_box = (gcnew System::Windows::Forms::TextBox());
-            this->birth_date_text_box = (gcnew System::Windows::Forms::TextBox());
             this->email_text_box = (gcnew System::Windows::Forms::TextBox());
             this->back_button = (gcnew System::Windows::Forms::Button());
             this->delete_button = (gcnew System::Windows::Forms::Button());
             this->view_booking_history_button = (gcnew System::Windows::Forms::Button());
             this->edit_mode_button = (gcnew System::Windows::Forms::Button());
             this->exit_edit_mode_button = (gcnew System::Windows::Forms::Button());
+            this->birth_date_time_picker = (gcnew System::Windows::Forms::DateTimePicker());
             this->SuspendLayout();
             // 
             // name_label
@@ -153,6 +156,7 @@ namespace CppCLRWinFormsProject {
             this->name_text_box->ReadOnly = true;
             this->name_text_box->Size = System::Drawing::Size(120, 20);
             this->name_text_box->TabIndex = 6;
+            this->name_text_box->TextChanged += gcnew System::EventHandler(this, &GuestForm::field_TextChanged);
             // 
             // surname_text_box
             // 
@@ -161,6 +165,7 @@ namespace CppCLRWinFormsProject {
             this->surname_text_box->ReadOnly = true;
             this->surname_text_box->Size = System::Drawing::Size(120, 20);
             this->surname_text_box->TabIndex = 7;
+            this->surname_text_box->TextChanged += gcnew System::EventHandler(this, &GuestForm::field_TextChanged);
             // 
             // patronymic_text_box
             // 
@@ -169,6 +174,7 @@ namespace CppCLRWinFormsProject {
             this->patronymic_text_box->ReadOnly = true;
             this->patronymic_text_box->Size = System::Drawing::Size(120, 20);
             this->patronymic_text_box->TabIndex = 8;
+            this->patronymic_text_box->TextChanged += gcnew System::EventHandler(this, &GuestForm::field_TextChanged);
             // 
             // passport_text_box
             // 
@@ -177,14 +183,7 @@ namespace CppCLRWinFormsProject {
             this->passport_text_box->ReadOnly = true;
             this->passport_text_box->Size = System::Drawing::Size(120, 20);
             this->passport_text_box->TabIndex = 9;
-            // 
-            // birth_date_text_box
-            // 
-            this->birth_date_text_box->Location = System::Drawing::Point(108, 161);
-            this->birth_date_text_box->Name = L"birth_date_text_box";
-            this->birth_date_text_box->ReadOnly = true;
-            this->birth_date_text_box->Size = System::Drawing::Size(120, 20);
-            this->birth_date_text_box->TabIndex = 10;
+            this->passport_text_box->TextChanged += gcnew System::EventHandler(this, &GuestForm::field_TextChanged);
             // 
             // email_text_box
             // 
@@ -193,64 +192,79 @@ namespace CppCLRWinFormsProject {
             this->email_text_box->ReadOnly = true;
             this->email_text_box->Size = System::Drawing::Size(120, 20);
             this->email_text_box->TabIndex = 11;
+            this->email_text_box->TextChanged += gcnew System::EventHandler(this, &GuestForm::field_TextChanged);
             // 
             // back_button
             // 
-            this->back_button->Location = System::Drawing::Point(245, 318);
+            this->back_button->Location = System::Drawing::Point(137, 289);
             this->back_button->Name = L"back_button";
-            this->back_button->Size = System::Drawing::Size(106, 40);
+            this->back_button->Size = System::Drawing::Size(90, 50);
             this->back_button->TabIndex = 12;
             this->back_button->Text = L"Back";
             this->back_button->UseVisualStyleBackColor = true;
             // 
             // delete_button
             // 
-            this->delete_button->Location = System::Drawing::Point(204, 252);
+            this->delete_button->Location = System::Drawing::Point(138, 233);
             this->delete_button->Name = L"delete_button";
-            this->delete_button->Size = System::Drawing::Size(115, 43);
+            this->delete_button->Size = System::Drawing::Size(90, 50);
             this->delete_button->TabIndex = 13;
             this->delete_button->Text = L"Delete";
             this->delete_button->UseVisualStyleBackColor = true;
+            this->delete_button->Click += gcnew System::EventHandler(this, &GuestForm::delete_button_Click);
             // 
             // view_booking_history_button
             // 
-            this->view_booking_history_button->Location = System::Drawing::Point(71, 252);
+            this->view_booking_history_button->Location = System::Drawing::Point(41, 233);
             this->view_booking_history_button->Name = L"view_booking_history_button";
-            this->view_booking_history_button->Size = System::Drawing::Size(102, 47);
+            this->view_booking_history_button->Size = System::Drawing::Size(90, 50);
             this->view_booking_history_button->TabIndex = 14;
             this->view_booking_history_button->Text = L"View booking history";
             this->view_booking_history_button->UseVisualStyleBackColor = true;
             // 
             // edit_mode_button
             // 
-            this->edit_mode_button->Location = System::Drawing::Point(24, 305);
+            this->edit_mode_button->Location = System::Drawing::Point(41, 289);
             this->edit_mode_button->Name = L"edit_mode_button";
-            this->edit_mode_button->Size = System::Drawing::Size(93, 42);
+            this->edit_mode_button->Size = System::Drawing::Size(90, 50);
             this->edit_mode_button->TabIndex = 15;
             this->edit_mode_button->Text = L"Edit mode";
             this->edit_mode_button->UseVisualStyleBackColor = true;
+            this->edit_mode_button->Click += gcnew System::EventHandler(this, &GuestForm::edit_mode_button_Click);
             // 
             // exit_edit_mode_button
             // 
-            this->exit_edit_mode_button->Location = System::Drawing::Point(137, 305);
+            this->exit_edit_mode_button->Location = System::Drawing::Point(87, 260);
             this->exit_edit_mode_button->Name = L"exit_edit_mode_button";
-            this->exit_edit_mode_button->Size = System::Drawing::Size(91, 45);
+            this->exit_edit_mode_button->Size = System::Drawing::Size(90, 50);
             this->exit_edit_mode_button->TabIndex = 16;
             this->exit_edit_mode_button->Text = L"Exit edit mode";
             this->exit_edit_mode_button->UseVisualStyleBackColor = true;
+            this->exit_edit_mode_button->Visible = false;
+            this->exit_edit_mode_button->Click += gcnew System::EventHandler(this, &GuestForm::exit_edit_mode_button_Click);
+            // 
+            // birth_date_time_picker
+            // 
+            this->birth_date_time_picker->Enabled = false;
+            this->birth_date_time_picker->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+            this->birth_date_time_picker->Location = System::Drawing::Point(108, 161);
+            this->birth_date_time_picker->Name = L"birth_date_time_picker";
+            this->birth_date_time_picker->Size = System::Drawing::Size(120, 20);
+            this->birth_date_time_picker->TabIndex = 17;
+            this->birth_date_time_picker->ValueChanged += gcnew System::EventHandler(this, &GuestForm::field_TextChanged);
             // 
             // GuestForm
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->ClientSize = System::Drawing::Size(363, 385);
+            this->ClientSize = System::Drawing::Size(275, 385);
+            this->Controls->Add(this->birth_date_time_picker);
             this->Controls->Add(this->exit_edit_mode_button);
             this->Controls->Add(this->edit_mode_button);
             this->Controls->Add(this->view_booking_history_button);
             this->Controls->Add(this->delete_button);
             this->Controls->Add(this->back_button);
             this->Controls->Add(this->email_text_box);
-            this->Controls->Add(this->birth_date_text_box);
             this->Controls->Add(this->passport_text_box);
             this->Controls->Add(this->patronymic_text_box);
             this->Controls->Add(this->surname_text_box);
@@ -268,5 +282,113 @@ namespace CppCLRWinFormsProject {
 
         }
 #pragma endregion
-    };
+    private: System::Void edit_mode_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        is_editing = true;
+
+        this->edit_mode_button->Visible = false;
+        this->view_booking_history_button->Visible = false;
+        this->delete_button->Visible = false;
+        this->edit_mode_button->Visible = false;
+        this->exit_edit_mode_button->Visible = true;
+
+        this->name_text_box->ReadOnly = false;
+        this->surname_text_box->ReadOnly = false;
+        this->patronymic_text_box->ReadOnly = false;
+        this->passport_text_box->ReadOnly = false;
+        this->birth_date_time_picker->Enabled = false;
+        this->email_text_box->ReadOnly = false;
+    }
+
+    private: System::Void exit_edit_mode_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        if (has_unsaved_changes)
+        {
+            System::Windows::Forms::DialogResult result = MessageBox::Show(
+                "Save the changes?",
+                "Exit Edit Mode",
+                MessageBoxButtons::YesNoCancel,
+                MessageBoxIcon::Question);
+
+            if (result == System::Windows::Forms::DialogResult::Yes)
+            {
+                SaveChanges();
+                DisableEditMode();
+            }
+            else if (result == System::Windows::Forms::DialogResult::No)
+            {
+                DiscardChanges();
+                DisableEditMode();
+            }
+        }
+        else
+        {
+            DisableEditMode();
+        }
+    }
+
+    private: System::Void DisableEditMode() {
+        is_editing = false;
+
+        this->back_button->Visible = true;
+        this->view_booking_history_button->Visible = true;
+        this->delete_button->Visible = true;
+        this->edit_mode_button->Visible = true;
+        this->exit_edit_mode_button->Visible = false;
+
+        this->name_text_box->ReadOnly = true;
+        this->surname_text_box->ReadOnly = true;
+        this->patronymic_text_box->ReadOnly = true;
+        this->passport_text_box->ReadOnly = true;
+        this->birth_date_time_picker->Enabled = true;
+        this->email_text_box->ReadOnly = true;
+    }
+
+    private: System::Void SaveChanges() {
+        _guest->save();
+        has_unsaved_changes = false;
+    }
+
+    private: System::Void DiscardChanges() {
+        FillForm();
+        has_unsaved_changes = false;
+    }
+
+    private: System::Void FillForm() {
+        name_text_box->Text = msclr::interop::marshal_as<System::String^>(_guest->name());
+        surname_text_box->Text = msclr::interop::marshal_as<System::String^>(_guest->surname());
+        patronymic_text_box->Text = msclr::interop::marshal_as<System::String^>(_guest->patronymic());
+        passport_text_box->Text = msclr::interop::marshal_as<System::String^>(_guest->passport());
+        System::String^ date = msclr::interop::marshal_as<System::String^>(_guest->birth_date()); //"2025-01-01"
+        birth_date_time_picker->Value = DateTime::Parse(date);
+        email_text_box->Text = msclr::interop::marshal_as<System::String^>(_guest->email());
+    }
+
+    private: System::Void field_TextChanged(Object^ sender, EventArgs^ e)
+    {
+        if (is_editing)
+        {
+            has_unsaved_changes = true;
+        }
+    }
+
+    private: System::Void delete_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        System::Windows::Forms::DialogResult result = MessageBox::Show(
+            "Delete a guest?",
+            "Deletion confirmation",
+            MessageBoxButtons::YesNo,
+            MessageBoxIcon::Question);
+
+        if (result == System::Windows::Forms::DialogResult::Yes)
+        {
+            delete_guest();
+        }
+    }
+
+    private: System::Void delete_guest() {
+        this->view_booking_history_button->Enabled = false;
+        this->delete_button->Enabled = false;
+        this->edit_mode_button->Enabled = false;
+        this->exit_edit_mode_button->Enabled = false;
+        _guest->remove();
+    }
+};
 }

@@ -16,6 +16,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A8847AD6-20D3-45F6-927F-6B59EE247416}"
+	ProjectSection(SolutionItems) = preProject
+		bookings.csv = bookings.csv
+		employees.csv = employees.csv
+		guests.csv = guests.csv
+		persons.csv = persons.csv
+		rooms.csv = rooms.csv
+		room_categories.csv = room_categories.csv
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSVGuest", "CSVGuest\CSVGuest.vcxproj", "{AF09B852-16BA-4564-8D5B-8060036ECA55}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IGuest", "IGuest\IGuest.vcxproj", "{FF514979-6972-4F0C-AFB5-4710C2750C25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -56,6 +70,22 @@ Global
 		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Release|x64.Build.0 = Release|x64
 		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Release|x86.ActiveCfg = Release|Win32
 		{55362B2E-F413-456F-B8AB-62BB9495BE2B}.Release|x86.Build.0 = Release|Win32
+		{AF09B852-16BA-4564-8D5B-8060036ECA55}.Debug|x64.ActiveCfg = Debug|x64
+		{AF09B852-16BA-4564-8D5B-8060036ECA55}.Debug|x64.Build.0 = Debug|x64
+		{AF09B852-16BA-4564-8D5B-8060036ECA55}.Debug|x86.ActiveCfg = Debug|Win32
+		{AF09B852-16BA-4564-8D5B-8060036ECA55}.Debug|x86.Build.0 = Debug|Win32
+		{AF09B852-16BA-4564-8D5B-8060036ECA55}.Release|x64.ActiveCfg = Release|x64
+		{AF09B852-16BA-4564-8D5B-8060036ECA55}.Release|x64.Build.0 = Release|x64
+		{AF09B852-16BA-4564-8D5B-8060036ECA55}.Release|x86.ActiveCfg = Release|Win32
+		{AF09B852-16BA-4564-8D5B-8060036ECA55}.Release|x86.Build.0 = Release|Win32
+		{FF514979-6972-4F0C-AFB5-4710C2750C25}.Debug|x64.ActiveCfg = Debug|x64
+		{FF514979-6972-4F0C-AFB5-4710C2750C25}.Debug|x64.Build.0 = Debug|x64
+		{FF514979-6972-4F0C-AFB5-4710C2750C25}.Debug|x86.ActiveCfg = Debug|Win32
+		{FF514979-6972-4F0C-AFB5-4710C2750C25}.Debug|x86.Build.0 = Debug|Win32
+		{FF514979-6972-4F0C-AFB5-4710C2750C25}.Release|x64.ActiveCfg = Release|x64
+		{FF514979-6972-4F0C-AFB5-4710C2750C25}.Release|x64.Build.0 = Release|x64
+		{FF514979-6972-4F0C-AFB5-4710C2750C25}.Release|x86.ActiveCfg = Release|Win32
+		{FF514979-6972-4F0C-AFB5-4710C2750C25}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
