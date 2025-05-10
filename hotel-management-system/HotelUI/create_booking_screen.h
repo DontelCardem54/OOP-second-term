@@ -1,0 +1,54 @@
+#pragma once
+namespace CppCLRWinFormsProject
+{
+    using namespace System;
+    using namespace System::ComponentModel;
+    using namespace System::Collections;
+    using namespace System::Windows::Forms;
+    using namespace System::Data;
+    using namespace System::Drawing;
+
+    public ref class CreateBookingScreen : UserControl
+    {
+    public:
+        CreateBookingScreen() {
+            InitializeComponent();
+            //
+            //TODO: Add the constructor code here
+            //
+        }
+
+    protected:
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        ~CreateBookingScreen()
+        {
+            if (components)
+            {
+                delete components;
+            }
+        }
+
+    protected:
+        /// <summary> 
+        /// “ребуемый метод дл€ поддержки конструктора Ч не измен€йте 
+        /// содержимое этого метода с помощью редактора кода.
+        /// </summary>
+    private:
+        System::ComponentModel::Container^ components;
+
+        void InitializeComponent(void)
+        {
+            this->SuspendLayout();
+            // 
+            // CreateBookingPanel
+            // 
+            this->BackColor = System::Drawing::SystemColors::Control;
+            this->Name = L"CreateBookingPanel";
+            this->Size = System::Drawing::Size(800, 600);
+            this->ResumeLayout(false);
+
+        }
+    };
+}
