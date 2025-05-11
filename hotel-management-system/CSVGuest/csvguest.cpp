@@ -566,4 +566,3 @@ bool CSVGuest::check_date(const std::string& date) {
     if (month < 1 || month > 12) return false;
     if (day < 1 || day > 31) return false;
 }
-

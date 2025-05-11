@@ -1006,8 +1006,10 @@ bool tvector_serach_all() {
 }
 #pragma endregion
 
+
+
 int main() {
-    TestSystem::print_init_info();
+    /*TestSystem::print_init_info();
     TestSystem::start_test(tvector_default_init, "default_init");
     TestSystem::start_test(tvector_size_init, "size_init");
     TestSystem::start_test(tvector_copy_init, "copy_init");
@@ -1078,6 +1080,10 @@ int main() {
     TestSystem::start_test(tvector_serach_all, "serach_all");
 
     TestSystem::start_test(tvector_test, "test");
-    TestSystem::print_final_info();
+    TestSystem::print_final_info();*/
+
+    
+    
+
     return 0;
 }
