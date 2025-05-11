@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{af09b852-16ba-4564-8d5b-8060036eca55}</ProjectGuid>
-    <RootNamespace>CSVGuest</RootNamespace>
+    <ProjectGuid>{e6a3fa40-62c3-4b2c-ad21-dd139184b481}</ProjectGuid>
+    <RootNamespace>CSVGuests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,15 +104,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -132,18 +131,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="csvguest.h" />
+    <ClCompile Include="csvguests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="csvguests.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSVGuest\CSVGuest.vcxproj">
+      <Project>{af09b852-16ba-4564-8d5b-8060036eca55}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\IGuests\IGuests.vcxproj">
+      <Project>{96fa6f46-bc06-49d9-b44b-99b1fce06b9a}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\IGuest\IGuest.vcxproj">
       <Project>{ff514979-6972-4f0c-afb5-4710c2750c25}</Project>
     </ProjectReference>
     <ProjectReference Include="..\TVector\TVector.vcxproj">
       <Project>{2716b139-11ac-4841-8701-1d19ffb9e9d3}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="csvguest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
