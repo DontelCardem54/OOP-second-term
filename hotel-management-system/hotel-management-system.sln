@@ -32,6 +32,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSVGuests", "CSVGuests\CSVG
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApplication", "TestApplication\TestApplication.vcxproj", "{C64C3647-7304-47CD-9D72-E76D26ADBF9B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HotelUI", "HotelUI\HotelUI.vcxproj", "{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -96,6 +98,14 @@ Global
 		{C64C3647-7304-47CD-9D72-E76D26ADBF9B}.Release|x64.Build.0 = Release|x64
 		{C64C3647-7304-47CD-9D72-E76D26ADBF9B}.Release|x86.ActiveCfg = Release|Win32
 		{C64C3647-7304-47CD-9D72-E76D26ADBF9B}.Release|x86.Build.0 = Release|Win32
+		{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}.Debug|x64.ActiveCfg = Debug|x64
+		{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}.Debug|x64.Build.0 = Debug|x64
+		{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}.Debug|x86.ActiveCfg = Debug|Win32
+		{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}.Debug|x86.Build.0 = Debug|Win32
+		{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}.Release|x64.ActiveCfg = Release|x64
+		{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}.Release|x64.Build.0 = Release|x64
+		{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}.Release|x86.ActiveCfg = Release|Win32
+		{F0B07A65-36DE-4B23-90B8-4EC06C3B9CE4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
