@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ff514979-6972-4f0c-afb5-4710c2750c25}</ProjectGuid>
-    <RootNamespace>IGuest</RootNamespace>
+    <ProjectGuid>{96fa6f46-bc06-49d9-b44b-99b1fce06b9a}</ProjectGuid>
+    <RootNamespace>IGuests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,11 +104,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -127,10 +131,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="iguest.h" />
+    <ClInclude Include="iguests.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="iguest.cpp" />
+    <ClCompile Include="iguests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IGuest\IGuest.vcxproj">
+      <Project>{ff514979-6972-4f0c-afb5-4710c2750c25}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TVector\TVector.vcxproj">
+      <Project>{2716b139-11ac-4841-8701-1d19ffb9e9d3}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
