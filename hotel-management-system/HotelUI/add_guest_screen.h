@@ -1,8 +1,8 @@
 #pragma once
-#include <string>
 
 #include "iguests.h"
 #include "iwindow.h"
+#include "iguest.h"
 
 namespace CppCLRWinFormsProject
 {
@@ -17,10 +17,14 @@ namespace CppCLRWinFormsProject
     {
     private:
         IWindow^ _parent;
-        IGuests* guests;
+        IGuests* _guests;
+        IGuest* _current_guest;
+
+    private: System::Windows::Forms::Button^ open_guest_button;
+    private: System::Windows::Forms::Button^ add_again_button;
 
     public:
-        AddGuestScreen(IWindow^ parent, IGuests* guests) : _parent(parent) {
+        AddGuestScreen(IWindow^ parent, IGuests* guests) : _parent(parent), _guests(guests) {
             InitializeComponent();
             //
             //TODO: Add the constructor code here
@@ -37,6 +41,8 @@ namespace CppCLRWinFormsProject
             {
                 delete components;
             }
+
+            delete _current_guest;
         }
     private: System::Windows::Forms::DateTimePicker^ birth_date_time_picker;
     protected:
@@ -76,6 +82,8 @@ namespace CppCLRWinFormsProject
             this->surname_label = (gcnew System::Windows::Forms::Label());
             this->patronymic_label = (gcnew System::Windows::Forms::Label());
             this->add_button = (gcnew System::Windows::Forms::Button());
+            this->open_guest_button = (gcnew System::Windows::Forms::Button());
+            this->add_again_button = (gcnew System::Windows::Forms::Button());
             this->SuspendLayout();
             // 
             // birth_date_time_picker
@@ -90,7 +98,7 @@ namespace CppCLRWinFormsProject
             // 
             this->back_button->Location = System::Drawing::Point(406, 381);
             this->back_button->Name = L"back_button";
-            this->back_button->Size = System::Drawing::Size(106, 40);
+            this->back_button->Size = System::Drawing::Size(100, 40);
             this->back_button->TabIndex = 26;
             this->back_button->Text = L"Back";
             this->back_button->UseVisualStyleBackColor = true;
@@ -195,9 +203,33 @@ namespace CppCLRWinFormsProject
             this->add_button->UseVisualStyleBackColor = true;
             this->add_button->Click += gcnew System::EventHandler(this, &AddGuestScreen::add_button_Click);
             // 
+            // open_guest_button
+            // 
+            this->open_guest_button->Location = System::Drawing::Point(345, 427);
+            this->open_guest_button->Name = L"open_guest_button";
+            this->open_guest_button->Size = System::Drawing::Size(100, 40);
+            this->open_guest_button->TabIndex = 28;
+            this->open_guest_button->Text = L"Open guest";
+            this->open_guest_button->UseVisualStyleBackColor = true;
+            this->open_guest_button->Visible = false;
+            this->open_guest_button->Click += gcnew System::EventHandler(this, &AddGuestScreen::open_guest_button_Click);
+            // 
+            // add_again_button
+            // 
+            this->add_again_button->Location = System::Drawing::Point(288, 381);
+            this->add_again_button->Name = L"add_again_button";
+            this->add_again_button->Size = System::Drawing::Size(100, 40);
+            this->add_again_button->TabIndex = 29;
+            this->add_again_button->Text = L"Add again";
+            this->add_again_button->UseVisualStyleBackColor = true;
+            this->add_again_button->Visible = false;
+            this->add_again_button->Click += gcnew System::EventHandler(this, &AddGuestScreen::add_again_button_Click);
+            // 
             // AddGuestScreen
             // 
             this->BackColor = System::Drawing::SystemColors::Control;
+            this->Controls->Add(this->add_again_button);
+            this->Controls->Add(this->open_guest_button);
             this->Controls->Add(this->birth_date_time_picker);
             this->Controls->Add(this->back_button);
             this->Controls->Add(this->email_text_box);
@@ -219,8 +251,54 @@ namespace CppCLRWinFormsProject
 
         }
     private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        clear_fields();
+        enable_fields();
         _parent->GoBack();
     }
     private: System::Void add_button_Click(System::Object^ sender, System::EventArgs^ e);
+    private:
+        void disable_fields() {
+            name_text_box->Enabled = false;
+            surname_text_box->Enabled = false;
+            patronymic_text_box->Enabled = false;
+            passport_text_box->Enabled = false;
+            birth_date_time_picker->Enabled = false;
+            email_text_box->Enabled = false;
+            add_button->Visible = false;
+            add_again_button->Visible = true;
+            open_guest_button->Visible = true;
+        }
+
+        void enable_fields() {
+            name_text_box->Enabled = true;
+            surname_text_box->Enabled = true;
+            patronymic_text_box->Enabled = true;
+            passport_text_box->Enabled = true;
+            birth_date_time_picker->Enabled = true;
+            email_text_box->Enabled = true;
+            add_button->Visible = true;
+            add_again_button->Visible = false;
+            open_guest_button->Visible = false;
+        }
+
+        void clear_fields() {
+            name_text_box->Text = System::String::Empty;
+            surname_text_box->Text = System::String::Empty;
+            patronymic_text_box->Text = System::String::Empty;
+            passport_text_box->Text = System::String::Empty;
+            birth_date_time_picker->Value = DateTime::Now;
+            email_text_box->Text = System::String::Empty;
+        }
+
+    private: System::Void add_again_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        clear_fields();
+        enable_fields();
+    }
+    private:System::Void open_guest_button_Click(System::Object^ sender, System::EventArgs^ e) {
+
+        clear_fields();
+        enable_fields();
+        _parent->ShowGuestScreen(_current_guest);
+    }
     };
 }

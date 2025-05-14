@@ -14,7 +14,7 @@ public:
     CSVGuests();
     IGuest* add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&) override;
     void remove(const std::string& id) override;
-    TVector<IGuest*> find(const std::string& passport) override;
+    TVector<IGuest*>* find(const std::string& passport) override;
     void clear() override;
 private:
     void update_id();

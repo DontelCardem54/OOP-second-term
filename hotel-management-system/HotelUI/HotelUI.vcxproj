@@ -225,6 +225,9 @@
     <EmbeddedResource Include="guests_screen.resx">
       <DependentUpon>guests_screen.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="guest_search_screen.resx">
+      <DependentUpon>guest_search_screen.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="window.resx">
       <DependentUpon>window.h</DependentUpon>
     </EmbeddedResource>

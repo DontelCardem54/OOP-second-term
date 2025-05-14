@@ -34,6 +34,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApplication", "TestAppl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HotelUI", "HotelUI\HotelUI.vcxproj", "{8F64F7CC-4C31-4B01-B4E9-9880EF1F229E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GuestValidator", "GuestValidator\GuestValidator.vcxproj", "{CE6CE8E8-C687-4BEA-A283-0923B9B08090}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -106,6 +108,14 @@ Global
 		{8F64F7CC-4C31-4B01-B4E9-9880EF1F229E}.Release|x64.Build.0 = Release|x64
 		{8F64F7CC-4C31-4B01-B4E9-9880EF1F229E}.Release|x86.ActiveCfg = Release|Win32
 		{8F64F7CC-4C31-4B01-B4E9-9880EF1F229E}.Release|x86.Build.0 = Release|Win32
+		{CE6CE8E8-C687-4BEA-A283-0923B9B08090}.Debug|x64.ActiveCfg = Debug|x64
+		{CE6CE8E8-C687-4BEA-A283-0923B9B08090}.Debug|x64.Build.0 = Debug|x64
+		{CE6CE8E8-C687-4BEA-A283-0923B9B08090}.Debug|x86.ActiveCfg = Debug|Win32
+		{CE6CE8E8-C687-4BEA-A283-0923B9B08090}.Debug|x86.Build.0 = Debug|Win32
+		{CE6CE8E8-C687-4BEA-A283-0923B9B08090}.Release|x64.ActiveCfg = Release|x64
+		{CE6CE8E8-C687-4BEA-A283-0923B9B08090}.Release|x64.Build.0 = Release|x64
+		{CE6CE8E8-C687-4BEA-A283-0923B9B08090}.Release|x86.ActiveCfg = Release|Win32
+		{CE6CE8E8-C687-4BEA-A283-0923B9B08090}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -70,6 +70,7 @@ namespace CppCLRWinFormsProject
             this->search_guest_button->TabIndex = 4;
             this->search_guest_button->Text = L"Search Guest";
             this->search_guest_button->UseVisualStyleBackColor = true;
+            this->search_guest_button->Click += gcnew System::EventHandler(this, &GuestsScreen::search_guest_button_Click);
             // 
             // add_guest_button
             // 
@@ -97,6 +98,9 @@ namespace CppCLRWinFormsProject
     }
     private: System::Void add_guest_button_Click(System::Object^ sender, System::EventArgs^ e) {
         _parent->ShowAddGuestScreen();
+    }
+    private: System::Void search_guest_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        _parent->ShowGuestSearchScreen();
     }
     };
 }

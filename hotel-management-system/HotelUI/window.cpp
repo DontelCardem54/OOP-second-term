@@ -2,6 +2,7 @@
 #include "window.h"
 
 void CppCLRWinFormsProject::Window::InitializeScreens() {
+    csvguests = new CSVGuests();
     this->panel_history = (gcnew System::Collections::Generic::Stack<UserControl^>());
 
     this->admin_screen = (gcnew AdminScreen(this));
@@ -10,11 +11,14 @@ void CppCLRWinFormsProject::Window::InitializeScreens() {
     this->add_guest_screen = (gcnew AddGuestScreen(this, csvguests));
     this->Controls->Add(this->add_guest_screen);
 
-    this->guest_screen = (gcnew GuestScreen());
+    this->guest_screen = (gcnew GuestScreen(this));
     this->Controls->Add(this->guest_screen);
 
     this->guests_screen = (gcnew GuestsScreen(this));
     this->Controls->Add(this->guests_screen);
+
+    this->guest_search_screen = (gcnew GuestSearchScreen(this, csvguests));
+    this->Controls->Add(this->guest_search_screen);
 }
 
 void CppCLRWinFormsProject::Window::ShowAdminScreen() {
@@ -27,10 +31,23 @@ void CppCLRWinFormsProject::Window::ShowRoomSearchScreen() {
     
 }
 
+void CppCLRWinFormsProject::Window::ShowGuestScreen(IGuest* guest) {
+    guest_screen->set_guest(guest);
+    this->container_panel->Controls->Clear();
+    this->container_panel->Controls->Add(this->guest_screen);
+    this->panel_history->Push(this->guest_screen);
+}
+
 void CppCLRWinFormsProject::Window::ShowGuestsScreen() {
     this->container_panel->Controls->Clear();
     this->container_panel->Controls->Add(this->guests_screen);
     this->panel_history->Push(this->guests_screen);
+}
+
+void CppCLRWinFormsProject::Window::ShowGuestSearchScreen() {
+    this->container_panel->Controls->Clear();
+    this->container_panel->Controls->Add(this->guest_search_screen);
+    this->panel_history->Push(this->guest_search_screen);
 }
 
 void CppCLRWinFormsProject::Window::ShowAddGuestScreen() {

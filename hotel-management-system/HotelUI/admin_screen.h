@@ -71,7 +71,7 @@ namespace CppCLRWinFormsProject
             this->bookings_button->Name = L"bookings_button";
             this->bookings_button->Size = System::Drawing::Size(100, 40);
             this->bookings_button->TabIndex = 8;
-            this->bookings_button->Text = L"Брони";
+            this->bookings_button->Text = L"Bookings";
             this->bookings_button->UseVisualStyleBackColor = true;
             // 
             // guests_button
@@ -80,7 +80,7 @@ namespace CppCLRWinFormsProject
             this->guests_button->Name = L"guests_button";
             this->guests_button->Size = System::Drawing::Size(100, 40);
             this->guests_button->TabIndex = 7;
-            this->guests_button->Text = L"Гости";
+            this->guests_button->Text = L"Guests";
             this->guests_button->UseVisualStyleBackColor = true;
             this->guests_button->Click += gcnew System::EventHandler(this, &AdminScreen::guests_button_Click);
             // 
@@ -90,7 +90,7 @@ namespace CppCLRWinFormsProject
             this->search_room_button->Name = L"search_room_button";
             this->search_room_button->Size = System::Drawing::Size(100, 40);
             this->search_room_button->TabIndex = 6;
-            this->search_room_button->Text = L"Поиск номера";
+            this->search_room_button->Text = L"Room search";
             this->search_room_button->UseVisualStyleBackColor = true;
             this->search_room_button->Click += gcnew System::EventHandler(this, &AdminScreen::search_room_button_Click);
             // 
@@ -100,7 +100,7 @@ namespace CppCLRWinFormsProject
             this->logout_button->Name = L"logout_button";
             this->logout_button->Size = System::Drawing::Size(100, 40);
             this->logout_button->TabIndex = 5;
-            this->logout_button->Text = L"Выйти из системы";
+            this->logout_button->Text = L"Logout";
             this->logout_button->UseVisualStyleBackColor = true;
             // 
             // AdminScreen

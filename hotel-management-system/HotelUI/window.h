@@ -49,6 +49,8 @@ namespace CppCLRWinFormsProject {
 			{
 				delete components;
 			}
+
+            delete csvguests;
 		}
     private:
         System::Windows::Forms::Panel^ container_panel;
@@ -77,7 +79,6 @@ namespace CppCLRWinFormsProject {
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
 		{
-            csvguests = new CSVGuests();
             this->container_panel = (gcnew System::Windows::Forms::Panel());
             this->SuspendLayout();
             // 
@@ -111,9 +112,9 @@ namespace CppCLRWinFormsProject {
         void ShowRoomScreen() override{}
         void ShowRoomSearchScreen() override;
 
-        void ShowGuestScreen() override{}
+        void ShowGuestScreen(IGuest*) override;
         void ShowGuestsScreen() override;
-        void ShowGuestSearchScreen() override{}
+        void ShowGuestSearchScreen() override;
         void ShowAddGuestScreen() override;
 
         void ShowBookingScreen() override{}

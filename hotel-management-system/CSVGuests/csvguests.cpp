@@ -84,8 +84,8 @@ void CSVGuests::remove(const std::string& id) {
     }
 }
 
-TVector<IGuest*> CSVGuests::find(const std::string& passport) {
-    TVector<IGuest*> guests;
+TVector<IGuest*>* CSVGuests::find(const std::string& passport) {
+    TVector<IGuest*>* guests = new TVector<IGuest*>();
     std::ifstream ipersons_file(_path_to_persons);
 
     if (!ipersons_file.is_open()) {
@@ -93,7 +93,6 @@ TVector<IGuest*> CSVGuests::find(const std::string& passport) {
     }
 
     std::string line;
-    bool found = false;
 
     while (std::getline(ipersons_file, line)) {
         std::istringstream ss(line);
@@ -104,13 +103,8 @@ TVector<IGuest*> CSVGuests::find(const std::string& passport) {
         std::getline(ss, current_passport, ',');
 
         if (current_passport == passport) {
-            guests.push_back(new CSVGuest(id));
-            found = true;
+            guests->push_back(new CSVGuest(id));
         }
-    }
-
-    if (!found) {
-        throw std::runtime_error("Гость с таким passport не найден");
     }
 
     return guests;
@@ -152,11 +146,12 @@ void CSVGuests::update_id() {
     std::istringstream ss(last_line);
     std::string id;
     std::getline(ss, id, ',');
-    if (id == "id") {
-        _current_id = 0;
-    }
-    else {
+
+    try {
         _current_id = std::stoi(id);
+    }
+    catch (std::invalid_argument& e) {
+        _current_id = 0;
     }
 }
 
@@ -211,11 +206,11 @@ bool CSVGuests::check_name(const std::string& name){
 bool CSVGuests::check_date(const std::string& date) {
     if (date.length() != 10) return false;
 
-    if (date[4] != '-' || date[7] != '-') return false;
+    if (date[2] != '.' || date[5] != '.') return false;
 
-    std::string year_str = date.substr(0, 4);
-    std::string month_str = date.substr(5, 2);
-    std::string day_str = date.substr(8, 2);
+    std::string day_str = date.substr(0, 2);
+    std::string month_str = date.substr(3, 2);
+    std::string year_str = date.substr(6, 4);
 
     for (char c : year_str + month_str + day_str) {
         if (!isdigit(c)) return false;
@@ -228,4 +223,6 @@ bool CSVGuests::check_date(const std::string& date) {
     if (year < 1900 || year > 2100) return false;
     if (month < 1 || month > 12) return false;
     if (day < 1 || day > 31) return false;
+
+    return true;
 }

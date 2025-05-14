@@ -1,4 +1,5 @@
 #pragma once
+#include "iguest.h"
 
 public interface class IWindow
 {
@@ -9,7 +10,7 @@ public:
     void ShowRoomScreen();
     void ShowRoomSearchScreen();
 
-    void ShowGuestScreen();
+    void ShowGuestScreen(IGuest*);
     void ShowGuestsScreen();
     void ShowGuestSearchScreen();
     void ShowAddGuestScreen();

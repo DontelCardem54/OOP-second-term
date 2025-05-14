@@ -1,4 +1,9 @@
 #pragma once
+
+#include "iguest.h"
+#include "iwindow.h"
+
+
 namespace CppCLRWinFormsProject
 {
     using namespace System;
@@ -10,8 +15,21 @@ namespace CppCLRWinFormsProject
 
     public ref class GuestScreen : UserControl
     {
+    private:
+        IWindow^ _parent;
+        IGuest* _guest;
+        bool _has_unsaved_changes = false;
+        bool _is_editing = false;
+        
+        bool _is_passport_changed = false;
+        bool _is_name_changed = false;
+        bool _is_surname_changed = false;
+        bool _is_patronymic_changed = false;
+        bool _is_birth_date_changed = false;
+        bool _is_email_changed = false;
+
     public:
-        GuestScreen() {
+        GuestScreen(IWindow^ parent) : _parent(parent) {
             InitializeComponent();
             //
             //TODO: Add the constructor code here
@@ -86,6 +104,7 @@ namespace CppCLRWinFormsProject
             this->birth_date_time_picker->Name = L"birth_date_time_picker";
             this->birth_date_time_picker->Size = System::Drawing::Size(120, 20);
             this->birth_date_time_picker->TabIndex = 51;
+            this->birth_date_time_picker->ValueChanged += gcnew System::EventHandler(this, &GuestScreen::birth_date_Changed);
             // 
             // exit_edit_mode_button
             // 
@@ -96,6 +115,7 @@ namespace CppCLRWinFormsProject
             this->exit_edit_mode_button->Text = L"Exit edit mode";
             this->exit_edit_mode_button->UseVisualStyleBackColor = true;
             this->exit_edit_mode_button->Visible = false;
+            this->exit_edit_mode_button->Click += gcnew System::EventHandler(this, &GuestScreen::exit_edit_mode_button_Click);
             // 
             // edit_mode_button
             // 
@@ -105,6 +125,7 @@ namespace CppCLRWinFormsProject
             this->edit_mode_button->TabIndex = 49;
             this->edit_mode_button->Text = L"Edit mode";
             this->edit_mode_button->UseVisualStyleBackColor = true;
+            this->edit_mode_button->Click += gcnew System::EventHandler(this, &GuestScreen::edit_mode_button_Click);
             // 
             // view_booking_history_button
             // 
@@ -123,6 +144,7 @@ namespace CppCLRWinFormsProject
             this->delete_button->TabIndex = 47;
             this->delete_button->Text = L"Delete";
             this->delete_button->UseVisualStyleBackColor = true;
+            this->delete_button->Click += gcnew System::EventHandler(this, &GuestScreen::delete_button_Click);
             // 
             // back_button
             // 
@@ -141,6 +163,7 @@ namespace CppCLRWinFormsProject
             this->email_text_box->ReadOnly = true;
             this->email_text_box->Size = System::Drawing::Size(120, 20);
             this->email_text_box->TabIndex = 45;
+            this->email_text_box->TextChanged += gcnew System::EventHandler(this, &GuestScreen::email_Changed);
             // 
             // passport_text_box
             // 
@@ -149,6 +172,7 @@ namespace CppCLRWinFormsProject
             this->passport_text_box->ReadOnly = true;
             this->passport_text_box->Size = System::Drawing::Size(120, 20);
             this->passport_text_box->TabIndex = 44;
+            this->passport_text_box->TextChanged += gcnew System::EventHandler(this, &GuestScreen::passport_Changed);
             // 
             // patronymic_text_box
             // 
@@ -157,6 +181,7 @@ namespace CppCLRWinFormsProject
             this->patronymic_text_box->ReadOnly = true;
             this->patronymic_text_box->Size = System::Drawing::Size(120, 20);
             this->patronymic_text_box->TabIndex = 43;
+            this->patronymic_text_box->TextChanged += gcnew System::EventHandler(this, &GuestScreen::patronymic_Changed);
             // 
             // surname_text_box
             // 
@@ -165,6 +190,7 @@ namespace CppCLRWinFormsProject
             this->surname_text_box->ReadOnly = true;
             this->surname_text_box->Size = System::Drawing::Size(120, 20);
             this->surname_text_box->TabIndex = 42;
+            this->surname_text_box->TextChanged += gcnew System::EventHandler(this, &GuestScreen::surname_Changed);
             // 
             // name_text_box
             // 
@@ -173,6 +199,7 @@ namespace CppCLRWinFormsProject
             this->name_text_box->ReadOnly = true;
             this->name_text_box->Size = System::Drawing::Size(120, 20);
             this->name_text_box->TabIndex = 41;
+            this->name_text_box->TextChanged += gcnew System::EventHandler(this, &GuestScreen::name_Changed);
             // 
             // email_label
             // 
@@ -228,7 +255,7 @@ namespace CppCLRWinFormsProject
             this->patronymic_label->TabIndex = 38;
             this->patronymic_label->Text = L"Patronymic: ";
             // 
-            // GuestPanel
+            // GuestScreen
             // 
             this->BackColor = System::Drawing::SystemColors::Control;
             this->Controls->Add(this->birth_date_time_picker);
@@ -248,14 +275,176 @@ namespace CppCLRWinFormsProject
             this->Controls->Add(this->passport_label);
             this->Controls->Add(this->surname_label);
             this->Controls->Add(this->patronymic_label);
-            this->Name = L"GuestPanel";
+            this->Name = L"GuestScreen";
             this->Size = System::Drawing::Size(800, 600);
             this->ResumeLayout(false);
             this->PerformLayout();
 
         }
     private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
-        this->Visible = false;
+        _parent->GoBack();
     }
-};
+
+    public:
+        System::Void set_guest(IGuest* guest);
+
+    private: System::Void delete_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        System::Windows::Forms::DialogResult result = MessageBox::Show(
+            "Delete a guest?",
+            "Deletion confirmation",
+            MessageBoxButtons::YesNo,
+            MessageBoxIcon::Question);
+
+        if (result == System::Windows::Forms::DialogResult::Yes)
+        {
+            delete_guest();
+        }
+    }
+    private: System::Void edit_mode_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        enable_fields();
+
+        view_booking_history_button->Visible = false;
+        delete_button->Visible = false;
+        back_button->Visible = false;
+        edit_mode_button->Visible = false;
+        exit_edit_mode_button->Visible = true;
+        _is_editing = true;
+    }
+    private: System::Void exit_edit_mode_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        if (_has_unsaved_changes)
+        {
+            System::Windows::Forms::DialogResult result = MessageBox::Show(
+                "Save the changes?",
+                "Exit Edit Mode",
+                MessageBoxButtons::YesNoCancel,
+                MessageBoxIcon::Question);
+
+            if (result == System::Windows::Forms::DialogResult::Yes)
+            {
+                save_changes();
+                disable_edit_mode();
+            }
+            else if (result == System::Windows::Forms::DialogResult::No)
+            {
+                discard_changes();
+                disable_edit_mode();
+            }
+        }
+        else
+        {
+            disable_edit_mode();
+        }
+    }
+
+    private:
+        System::Void disable_fields() {
+            name_text_box->ReadOnly = true;
+            surname_text_box->ReadOnly = true;
+            patronymic_text_box->ReadOnly = true;
+            passport_text_box->ReadOnly = true;
+            birth_date_time_picker->Enabled = false;
+            email_text_box->ReadOnly = true;
+        }
+
+        System::Void enable_fields() {
+            name_text_box->ReadOnly = false;
+            surname_text_box->ReadOnly = false;
+            patronymic_text_box->ReadOnly = false;
+            passport_text_box->ReadOnly = false;
+            birth_date_time_picker->Enabled = true;
+            email_text_box->ReadOnly = false;
+        }
+
+        System::Void save_changes();
+
+        System::Void disable_edit_mode() {
+            _is_editing = false;
+
+            this->back_button->Visible = true;
+            this->view_booking_history_button->Visible = true;
+            this->delete_button->Visible = true;
+            this->edit_mode_button->Visible = true;
+            this->exit_edit_mode_button->Visible = false;
+
+            disable_fields();
+        }
+
+        System::Void discard_changes() {
+            fill_screen();
+            _has_unsaved_changes = false;
+            _is_passport_changed = false;
+            _is_name_changed = false;
+            _is_surname_changed = false;
+            _is_patronymic_changed = false;
+            _is_birth_date_changed = false;
+            _is_email_changed = false;
+
+        }
+
+        System::Void fill_screen();
+
+        System::Void delete_guest() {
+            disable_fields();
+            this->view_booking_history_button->Enabled = false;
+            this->delete_button->Enabled = false;
+            this->edit_mode_button->Enabled = false;
+            this->exit_edit_mode_button->Enabled = false;
+            _guest->remove();
+            _guest = nullptr;
+        }
+
+        System::Void passport_Changed(Object^ sender, EventArgs^ e)
+        {
+            if (_is_editing)
+            {
+                _has_unsaved_changes = true;
+                _is_passport_changed = true;
+            }
+        }
+
+        System::Void name_Changed(Object^ sender, EventArgs^ e)
+        {
+            if (_is_editing)
+            {
+                _has_unsaved_changes = true;
+                _is_name_changed = true;
+            }
+        }
+
+        System::Void surname_Changed(Object^ sender, EventArgs^ e)
+        {
+            if (_is_editing)
+            {
+                _has_unsaved_changes = true;
+                _is_surname_changed = true;
+            }
+        }
+
+        System::Void patronymic_Changed(Object^ sender, EventArgs^ e)
+        {
+            if (_is_editing)
+            {
+                _has_unsaved_changes = true;
+                _is_patronymic_changed = true;
+            }
+        }
+
+        System::Void email_Changed(Object^ sender, EventArgs^ e)
+        {
+            if (_is_editing)
+            {
+                _has_unsaved_changes = true;
+                _is_email_changed = true;
+            }
+        }
+
+        System::Void birth_date_Changed(Object^ sender, EventArgs^ e)
+        {
+            if (_is_editing)
+            {
+                _has_unsaved_changes = true;
+                _is_birth_date_changed = true;
+            }
+        }
+    };
 }
