@@ -99,6 +99,7 @@ namespace CppCLRWinFormsProject
             this->back_button->TabIndex = 11;
             this->back_button->Text = L"Back";
             this->back_button->UseVisualStyleBackColor = true;
+            this->back_button->Click += gcnew System::EventHandler(this, &GuestSearchScreen::clear_screen);
             this->back_button->Click += gcnew System::EventHandler(this, &GuestSearchScreen::back_button_Click);
             // 
             // saerch_button
@@ -147,9 +148,6 @@ namespace CppCLRWinFormsProject
 
 
     private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
-        result_label->Text = "Results:";
-        passport_text_box->Text = System::String::Empty;
-        search_result_panel->Controls->Clear();
         _parent->GoBack();
     }
 

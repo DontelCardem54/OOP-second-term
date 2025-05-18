@@ -19,6 +19,7 @@
 #include "iwindow.h"
 
 #include "csvguests.h"
+#include "csvrooms.h"
 
 
 namespace CppCLRWinFormsProject {
@@ -51,6 +52,7 @@ namespace CppCLRWinFormsProject {
 			}
 
             delete csvguests;
+            delete csvrooms;
 		}
     private:
         System::Windows::Forms::Panel^ container_panel;
@@ -72,6 +74,7 @@ namespace CppCLRWinFormsProject {
         CreateBookingScreen^ create_booking_screen;
 
         CSVGuests* csvguests;
+        CSVRooms* csvrooms;
 
         System::Collections::Generic::Stack<UserControl^>^ panel_history;
         System::ComponentModel::Container^ components;
@@ -109,7 +112,7 @@ namespace CppCLRWinFormsProject {
         void ShowLoginScreen() override{}
         void ShowAdminScreen() override;
 
-        void ShowRoomScreen() override{}
+        void ShowRoomScreen(IRoom*) override;
         void ShowRoomSearchScreen() override;
 
         void ShowGuestScreen(IGuest*) override;

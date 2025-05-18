@@ -526,8 +526,6 @@ bool CSVGuest::check_passport(const std::string& passport) {
         }
     }
 
-    
-
     return true;
 }
 

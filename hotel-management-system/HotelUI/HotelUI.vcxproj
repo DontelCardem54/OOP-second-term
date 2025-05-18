@@ -80,13 +80,13 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
-      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -228,6 +228,12 @@
     <EmbeddedResource Include="guest_search_screen.resx">
       <DependentUpon>guest_search_screen.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="room_screen.resx">
+      <DependentUpon>room_screen.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="room_search_screen.resx">
+      <DependentUpon>room_search_screen.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="window.resx">
       <DependentUpon>window.h</DependentUpon>
     </EmbeddedResource>
@@ -242,11 +248,23 @@
     <ProjectReference Include="..\CSVGuest\CSVGuest.vcxproj">
       <Project>{af09b852-16ba-4564-8d5b-8060036eca55}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\CSVRooms\CSVRooms.vcxproj">
+      <Project>{4e9d982f-a6e3-4072-9f32-fe2adbfa992a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CSVRoom\CSVRoom.vcxproj">
+      <Project>{7d5c680b-b69d-4c3c-93ed-6f56e70c8521}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\IGuests\IGuests.vcxproj">
       <Project>{96fa6f46-bc06-49d9-b44b-99b1fce06b9a}</Project>
     </ProjectReference>
     <ProjectReference Include="..\IGuest\IGuest.vcxproj">
       <Project>{ff514979-6972-4f0c-afb5-4710c2750c25}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\IRooms\IRooms.vcxproj">
+      <Project>{ede7d7fd-2c3b-4aa7-a575-aed2ade148f9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\IRoom\IRoom.vcxproj">
+      <Project>{8e1c490f-3a67-4eab-8695-63f145e91f69}</Project>
     </ProjectReference>
     <ProjectReference Include="..\TVector\TVector.vcxproj">
       <Project>{2716b139-11ac-4841-8701-1d19ffb9e9d3}</Project>

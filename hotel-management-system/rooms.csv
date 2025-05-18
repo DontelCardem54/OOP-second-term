@@ -1,1 +1,11 @@
-id,number,category_id,beds_count
+id,number,category_id,beds_count,state
+1,101,1,1,available
+2,102,1,1,occupied
+3,103,2,2,available
+4,104,2,2,under_maintenance
+5,201,3,2,occupied
+6,202,3,2,available
+7,301,4,3,occupied
+8,302,4,3,available
+9,401,5,4,available
+10,402,5,4,under_maintenance
