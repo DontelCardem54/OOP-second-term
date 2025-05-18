@@ -4,6 +4,8 @@
 void CppCLRWinFormsProject::Window::InitializeScreens() {
     csvguests = new CSVGuests();
     csvrooms = new CSVRooms();
+    csvbookings = new CSVBookings();
+
     this->panel_history = (gcnew System::Collections::Generic::Stack<UserControl^>());
 
     this->admin_screen = (gcnew AdminScreen(this));
@@ -26,6 +28,18 @@ void CppCLRWinFormsProject::Window::InitializeScreens() {
 
     this->room_screen = (gcnew RoomScreen(this));
     this->Controls->Add(this->room_screen);
+
+    this->booking_screen = (gcnew BookingScreen(this));
+    this->Controls->Add(this->booking_screen);
+
+    this->bookings_screen = (gcnew BookingsScreen(this));
+    this->Controls->Add(this->bookings_screen);
+
+    this->create_booking_screen = (gcnew CreateBookingScreen(this, csvbookings, csvguests, csvrooms));
+    this->Controls->Add(this->create_booking_screen);
+
+    this->booking_search_screen = (gcnew BookingSearchScreen(this));
+    this->Controls->Add(this->booking_search_screen);
 }
 
 void CppCLRWinFormsProject::Window::ShowAdminScreen() {
@@ -70,6 +84,33 @@ void CppCLRWinFormsProject::Window::ShowAddGuestScreen() {
     this->container_panel->Controls->Clear();
     this->container_panel->Controls->Add(this->add_guest_screen);
     this->panel_history->Push(this->add_guest_screen);
+}
+
+void CppCLRWinFormsProject::Window::ShowBookingScreen(IBooking* booking) {
+    booking_screen->set_booking(booking);
+    this->container_panel->Controls->Clear();
+    this->container_panel->Controls->Add(this->booking_screen);
+    this->panel_history->Push(this->booking_screen);
+}
+
+void CppCLRWinFormsProject::Window::ShowBookingsScreen() {
+    this->container_panel->Controls->Clear();
+    this->container_panel->Controls->Add(this->bookings_screen);
+    this->panel_history->Push(this->bookings_screen);
+}
+
+void CppCLRWinFormsProject::Window::ShowBookingSearchScreen()
+{
+    this->container_panel->Controls->Clear();
+    this->container_panel->Controls->Add(this->booking_search_screen);
+    this->panel_history->Push(this->booking_search_screen);
+}
+
+void CppCLRWinFormsProject::Window::ShowCreateBookingScreen()
+{
+    this->container_panel->Controls->Clear();
+    this->container_panel->Controls->Add(this->create_booking_screen);
+    this->panel_history->Push(this->create_booking_screen);
 }
 
 void CppCLRWinFormsProject::Window::GoBack() {

@@ -19,6 +19,8 @@ public:
         const std::string& beds_count,
         const std::string& state) override;
     void clear();
+
+    IRoom* get_by_room_number(const std::string& number) override;
 private:
     void update_id();
 };

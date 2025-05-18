@@ -43,3 +43,29 @@ TVector<IRoom*>* CSVRooms::find(
 
     return rooms;
 }
+
+IRoom* CSVRooms::get_by_room_number(const std::string& number)
+{
+    std::ifstream irooms_file(_path_to_rooms);
+
+    if (!irooms_file.is_open()) {
+        throw std::runtime_error("Не удалось открыть файл для чтения");
+    }
+
+    std::string line;
+
+    while (std::getline(irooms_file, line)) {
+        std::istringstream ss(line);
+        std::string current_number;
+        std::string id;
+
+        std::getline(ss, id, ',');
+        std::getline(ss, current_number, ',');
+
+        if (current_number == number) {
+            return new CSVRoom(id);
+        }
+    }
+
+    return nullptr;
+}

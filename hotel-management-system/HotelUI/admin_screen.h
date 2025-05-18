@@ -73,6 +73,7 @@ namespace CppCLRWinFormsProject
             this->bookings_button->TabIndex = 8;
             this->bookings_button->Text = L"Bookings";
             this->bookings_button->UseVisualStyleBackColor = true;
+            this->bookings_button->Click += gcnew System::EventHandler(this, &AdminScreen::bookings_button_Click);
             // 
             // guests_button
             // 
@@ -123,5 +124,8 @@ namespace CppCLRWinFormsProject
     private: System::Void guests_button_Click(System::Object^ sender, System::EventArgs^ e) {
         _parent->ShowGuestsScreen();
     }
-    };
+    private: System::Void bookings_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        _parent->ShowBookingsScreen();
+    }
+};
 }

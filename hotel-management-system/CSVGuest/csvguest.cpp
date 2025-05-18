@@ -30,6 +30,10 @@ CSVGuest::CSVGuest(const std::string& id,
     _email(email) {}
 
 
+std::string CSVGuest::id() {
+    return _id;
+}
+
 std::string CSVGuest::name() {
     if (!is_fresh) {
         upload_data();

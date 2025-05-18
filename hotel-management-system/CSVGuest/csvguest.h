@@ -24,6 +24,7 @@ public:
     CSVGuest(const std::string&);
     CSVGuest(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
     
+    std::string id() override;
     std::string name() override;
     std::string surname() override;
     std::string patronymic() override;

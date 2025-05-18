@@ -6,6 +6,10 @@
 
 CSVRoom::CSVRoom(const std::string& id) : _id(id) {}
 
+std::string CSVRoom::id() {
+    return _id;
+}
+
 std::string CSVRoom::number() {
     if (!is_fresh) {
         upload_data();

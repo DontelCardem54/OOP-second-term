@@ -1,6 +1,7 @@
 #pragma once
 #include "iguest.h"
 #include "iroom.h"
+#include "ibooking.h"
 
 public interface class IWindow
 {
@@ -16,7 +17,7 @@ public:
     void ShowGuestSearchScreen();
     void ShowAddGuestScreen();
 
-    void ShowBookingScreen();
+    void ShowBookingScreen(IBooking*);
     void ShowBookingsScreen();
     void ShowBookingSearchScreen();
     void ShowCreateBookingScreen();

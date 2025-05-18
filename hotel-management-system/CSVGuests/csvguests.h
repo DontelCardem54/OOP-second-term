@@ -16,6 +16,7 @@ public:
     void remove(const std::string& id) override;
     TVector<IGuest*>* find(const std::string& passport) override;
     void clear() override;
+    IGuest* get_by_passport(const std::string& passport) override;
 private:
     void update_id();
     bool check_passport(const std::string&);

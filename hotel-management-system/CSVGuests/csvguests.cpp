@@ -129,6 +129,31 @@ void CSVGuests::clear() {
     _current_id = 0;
 }
 
+IGuest* CSVGuests::get_by_passport(const std::string& passport) {
+    std::ifstream ipersons_file(_path_to_persons);
+
+    if (!ipersons_file.is_open()) {
+        throw std::runtime_error("Не удалось открыть файл для чтения");
+    }
+
+    std::string line;
+
+    while (std::getline(ipersons_file, line)) {
+        std::istringstream ss(line);
+        std::string current_passport;
+        std::string id;
+
+        std::getline(ss, id, ',');
+        std::getline(ss, current_passport, ',');
+
+        if (current_passport == passport) {
+            return new CSVGuest(id);
+        }
+    }
+
+    return nullptr;
+}
+
 void CSVGuests::update_id() {
     std::ifstream file(_path_to_persons);
     std::string line, last_line;

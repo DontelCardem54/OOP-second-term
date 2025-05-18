@@ -70,9 +70,9 @@ namespace CppCLRWinFormsProject
             // 
             // back_button
             // 
-            this->back_button->Location = System::Drawing::Point(467, 317);
+            this->back_button->Location = System::Drawing::Point(339, 320);
             this->back_button->Name = L"back_button";
-            this->back_button->Size = System::Drawing::Size(116, 32);
+            this->back_button->Size = System::Drawing::Size(109, 43);
             this->back_button->TabIndex = 19;
             this->back_button->Text = L"Back";
             this->back_button->UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@ namespace CppCLRWinFormsProject
             // staff_label
             // 
             this->staff_label->AutoSize = true;
-            this->staff_label->Location = System::Drawing::Point(217, 308);
+            this->staff_label->Location = System::Drawing::Point(217, 301);
             this->staff_label->Name = L"staff_label";
             this->staff_label->Size = System::Drawing::Size(108, 13);
             this->staff_label->TabIndex = 18;
@@ -90,7 +90,7 @@ namespace CppCLRWinFormsProject
             // guest_label
             // 
             this->guest_label->AutoSize = true;
-            this->guest_label->Location = System::Drawing::Point(217, 264);
+            this->guest_label->Location = System::Drawing::Point(217, 273);
             this->guest_label->Name = L"guest_label";
             this->guest_label->Size = System::Drawing::Size(91, 13);
             this->guest_label->TabIndex = 17;
@@ -100,7 +100,7 @@ namespace CppCLRWinFormsProject
             // 
             this->book_room_button->Location = System::Drawing::Point(464, 367);
             this->book_room_button->Name = L"book_room_button";
-            this->book_room_button->Size = System::Drawing::Size(119, 44);
+            this->book_room_button->Size = System::Drawing::Size(100, 44);
             this->book_room_button->TabIndex = 16;
             this->book_room_button->Text = L"Забронировать";
             this->book_room_button->UseVisualStyleBackColor = true;
@@ -126,7 +126,7 @@ namespace CppCLRWinFormsProject
             // beds_count_label
             // 
             this->beds_count_label->AutoSize = true;
-            this->beds_count_label->Location = System::Drawing::Point(452, 190);
+            this->beds_count_label->Location = System::Drawing::Point(217, 240);
             this->beds_count_label->Name = L"beds_count_label";
             this->beds_count_label->Size = System::Drawing::Size(67, 13);
             this->beds_count_label->TabIndex = 13;
@@ -135,7 +135,7 @@ namespace CppCLRWinFormsProject
             // room_number_label
             // 
             this->room_number_label->AutoSize = true;
-            this->room_number_label->Location = System::Drawing::Point(388, 190);
+            this->room_number_label->Location = System::Drawing::Point(217, 215);
             this->room_number_label->Name = L"room_number_label";
             this->room_number_label->Size = System::Drawing::Size(50, 13);
             this->room_number_label->TabIndex = 12;
@@ -144,7 +144,7 @@ namespace CppCLRWinFormsProject
             // category_label
             // 
             this->category_label->AutoSize = true;
-            this->category_label->Location = System::Drawing::Point(296, 190);
+            this->category_label->Location = System::Drawing::Point(217, 190);
             this->category_label->Name = L"category_label";
             this->category_label->Size = System::Drawing::Size(55, 13);
             this->category_label->TabIndex = 11;
@@ -153,7 +153,7 @@ namespace CppCLRWinFormsProject
             // state_label
             // 
             this->state_label->AutoSize = true;
-            this->state_label->Location = System::Drawing::Point(217, 190);
+            this->state_label->Location = System::Drawing::Point(217, 162);
             this->state_label->Name = L"state_label";
             this->state_label->Size = System::Drawing::Size(38, 13);
             this->state_label->TabIndex = 10;

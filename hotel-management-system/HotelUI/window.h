@@ -20,6 +20,7 @@
 
 #include "csvguests.h"
 #include "csvrooms.h"
+#include "csvbookings.h"
 
 
 namespace CppCLRWinFormsProject {
@@ -75,6 +76,7 @@ namespace CppCLRWinFormsProject {
 
         CSVGuests* csvguests;
         CSVRooms* csvrooms;
+        CSVBookings* csvbookings;
 
         System::Collections::Generic::Stack<UserControl^>^ panel_history;
         System::ComponentModel::Container^ components;
@@ -120,10 +122,10 @@ namespace CppCLRWinFormsProject {
         void ShowGuestSearchScreen() override;
         void ShowAddGuestScreen() override;
 
-        void ShowBookingScreen() override{}
-        void ShowBookingsScreen() override{}
-        void ShowBookingSearchScreen() override{}
-        void ShowCreateBookingScreen() override{}
+        void ShowBookingScreen(IBooking*) override;
+        void ShowBookingsScreen() override;
+        void ShowBookingSearchScreen() override;
+        void ShowCreateBookingScreen() override;
 
         void GoBack() override;
 	};

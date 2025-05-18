@@ -19,10 +19,6 @@ namespace CppCLRWinFormsProject
         IWindow^ _parent;
         IGuests* _guests;
         IGuest* _current_guest;
-
-    private: System::Windows::Forms::Button^ open_guest_button;
-    private: System::Windows::Forms::Button^ add_again_button;
-
     public:
         AddGuestScreen(IWindow^ parent, IGuests* guests) : _parent(parent), _guests(guests) {
             InitializeComponent();
@@ -44,8 +40,9 @@ namespace CppCLRWinFormsProject
 
             delete _current_guest;
         }
+    private: System::Windows::Forms::Button^ open_guest_button;
+    private: System::Windows::Forms::Button^ add_again_button;
     private: System::Windows::Forms::DateTimePicker^ birth_date_time_picker;
-    protected:
     private: System::Windows::Forms::Button^ back_button;
     private: System::Windows::Forms::TextBox^ email_text_box;
     private: System::Windows::Forms::TextBox^ passport_text_box;
@@ -295,7 +292,6 @@ namespace CppCLRWinFormsProject
         enable_fields();
     }
     private:System::Void open_guest_button_Click(System::Object^ sender, System::EventArgs^ e) {
-
         clear_fields();
         enable_fields();
         _parent->ShowGuestScreen(_current_guest);

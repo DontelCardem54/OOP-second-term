@@ -3,6 +3,7 @@
 
 class IGuest {
 public:
+    virtual std::string id() = 0;
     virtual std::string passport() = 0;
     virtual std::string name() = 0;
     virtual std::string surname() = 0;

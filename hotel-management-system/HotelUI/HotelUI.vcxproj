@@ -80,13 +80,13 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;C:\GitHub\OOP-second-term\hotel-management-system\CSVBookings;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
-      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;C:\GitHub\OOP-second-term\hotel-management-system\CSVBookings;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -216,8 +216,14 @@
     <EmbeddedResource Include="admin_screen.resx">
       <DependentUpon>admin_screen.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="bookings_screen.resx">
+      <DependentUpon>bookings_screen.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="booking_screen.resx">
       <DependentUpon>booking_screen.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="booking_search_screen.resx">
+      <DependentUpon>booking_search_screen.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="create_booking_screen.resx">
       <DependentUpon>create_booking_screen.h</DependentUpon>
@@ -242,6 +248,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSVBookings\CSVBookings.vcxproj">
+      <Project>{d48cf505-bce5-4f89-b86d-ab96faaba645}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CSVBooking\CSVBooking.vcxproj">
+      <Project>{b36efa1d-4ebb-4959-8404-297762828074}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\CSVGuests\CSVGuests.vcxproj">
       <Project>{e6a3fa40-62c3-4b2c-ad21-dd139184b481}</Project>
     </ProjectReference>
@@ -253,6 +265,12 @@
     </ProjectReference>
     <ProjectReference Include="..\CSVRoom\CSVRoom.vcxproj">
       <Project>{7d5c680b-b69d-4c3c-93ed-6f56e70c8521}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\IBookings\IBookings.vcxproj">
+      <Project>{7b928ca0-4dd9-47e7-8aea-23277c94eec9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\IBooking\IBooking.vcxproj">
+      <Project>{31ef4e34-1ef2-4d24-ad88-739716c26c8e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\IGuests\IGuests.vcxproj">
       <Project>{96fa6f46-bc06-49d9-b44b-99b1fce06b9a}</Project>

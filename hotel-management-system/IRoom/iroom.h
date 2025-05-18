@@ -3,6 +3,7 @@
 
 class IRoom {
 public:
+    virtual std::string id() = 0;
     virtual std::string number() = 0;
     virtual std::string category_name() = 0;
     virtual std::string category_price() = 0;

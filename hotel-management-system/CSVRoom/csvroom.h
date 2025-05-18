@@ -18,6 +18,7 @@ private:
 public:
     CSVRoom(const std::string& id);
 
+    std::string id() override;
     std::string number() override;
     std::string category_name() override;
     std::string category_price() override;

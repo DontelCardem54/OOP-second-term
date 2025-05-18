@@ -48,7 +48,6 @@ namespace CppCLRWinFormsProject
             }
         }
     private: System::Windows::Forms::DateTimePicker^ birth_date_time_picker;
-    protected:
     private: System::Windows::Forms::Button^ exit_edit_mode_button;
     private: System::Windows::Forms::Button^ edit_mode_button;
     private: System::Windows::Forms::Button^ view_booking_history_button;
@@ -65,9 +64,6 @@ namespace CppCLRWinFormsProject
     private: System::Windows::Forms::Label^ passport_label;
     private: System::Windows::Forms::Label^ surname_label;
     private: System::Windows::Forms::Label^ patronymic_label;
-
-    protected:
-
         /// <summary> 
         /// “ребуемый метод дл€ поддержки конструктора Ч не измен€йте 
         /// содержимое этого метода с помощью редактора кода.
@@ -284,10 +280,6 @@ namespace CppCLRWinFormsProject
     private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
         _parent->GoBack();
     }
-
-    public:
-        System::Void set_guest(IGuest* guest);
-
     private: System::Void delete_button_Click(System::Object^ sender, System::EventArgs^ e) {
         System::Windows::Forms::DialogResult result = MessageBox::Show(
             "Delete a guest?",
@@ -335,6 +327,9 @@ namespace CppCLRWinFormsProject
             disable_edit_mode();
         }
     }
+
+    public:
+        System::Void set_guest(IGuest* guest);
 
     private:
         System::Void disable_fields() {

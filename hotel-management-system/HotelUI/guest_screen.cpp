@@ -9,8 +9,7 @@ System::Void CppCLRWinFormsProject::GuestScreen::set_guest(IGuest* guest) {
     fill_screen();
 }
 
-System::Void CppCLRWinFormsProject::GuestScreen::save_changes()
-{
+System::Void CppCLRWinFormsProject::GuestScreen::save_changes() {
     if (_is_passport_changed) {
         std::string passport = msclr::interop::marshal_as<std::string>(passport_text_box->Text);
         _guest->change_passport(passport);
