@@ -154,6 +154,29 @@ IGuest* CSVGuests::get_by_passport(const std::string& passport) {
     return nullptr;
 }
 
+IGuest* CSVGuests::get_by_id(const std::string& id) {
+    std::ifstream ipersons_file(_path_to_persons);
+
+    if (!ipersons_file.is_open()) {
+        throw std::runtime_error("Не удалось открыть файл для чтения");
+    }
+
+    std::string line;
+
+    while (std::getline(ipersons_file, line)) {
+        std::istringstream ss(line);
+        std::string current_id;
+
+        std::getline(ss, current_id, ',');
+
+        if (current_id == id) {
+            return new CSVGuest(id);
+        }
+    }
+
+    return nullptr;
+}
+
 void CSVGuests::update_id() {
     std::ifstream file(_path_to_persons);
     std::string line, last_line;
