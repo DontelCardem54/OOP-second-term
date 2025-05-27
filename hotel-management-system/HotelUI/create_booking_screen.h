@@ -23,7 +23,8 @@ namespace CppCLRWinFormsProject
         IGuests* _guests;
         IRooms* _rooms;
     private: System::Windows::Forms::Button^ open_booking_button;
-    private: System::Windows::Forms::Button^ add_again_button;
+    private: System::Windows::Forms::Button^ create_again_button;
+
 
     public:
         CreateBookingScreen(IWindow^ parent, IBookings* bookings, IGuests* guests, IRooms* rooms)
@@ -83,7 +84,7 @@ namespace CppCLRWinFormsProject
             this->start_date_time_picker = (gcnew System::Windows::Forms::DateTimePicker());
             this->end_date_time_picker = (gcnew System::Windows::Forms::DateTimePicker());
             this->open_booking_button = (gcnew System::Windows::Forms::Button());
-            this->add_again_button = (gcnew System::Windows::Forms::Button());
+            this->create_again_button = (gcnew System::Windows::Forms::Button());
             this->SuspendLayout();
             // 
             // back_button
@@ -199,21 +200,21 @@ namespace CppCLRWinFormsProject
             this->open_booking_button->Visible = false;
             this->open_booking_button->Click += gcnew System::EventHandler(this, &CreateBookingScreen::open_booking_button_Click);
             // 
-            // add_again_button
+            // create_again_button
             // 
-            this->add_again_button->Location = System::Drawing::Point(288, 363);
-            this->add_again_button->Name = L"add_again_button";
-            this->add_again_button->Size = System::Drawing::Size(100, 40);
-            this->add_again_button->TabIndex = 30;
-            this->add_again_button->Text = L"Add again";
-            this->add_again_button->UseVisualStyleBackColor = true;
-            this->add_again_button->Visible = false;
-            this->add_again_button->Click += gcnew System::EventHandler(this, &CreateBookingScreen::add_again_button_Click);
+            this->create_again_button->Location = System::Drawing::Point(288, 363);
+            this->create_again_button->Name = L"create_again_button";
+            this->create_again_button->Size = System::Drawing::Size(100, 40);
+            this->create_again_button->TabIndex = 30;
+            this->create_again_button->Text = L"Create again";
+            this->create_again_button->UseVisualStyleBackColor = true;
+            this->create_again_button->Visible = false;
+            this->create_again_button->Click += gcnew System::EventHandler(this, &CreateBookingScreen::create_again_button_Click);
             // 
             // CreateBookingScreen
             // 
             this->BackColor = System::Drawing::SystemColors::Control;
-            this->Controls->Add(this->add_again_button);
+            this->Controls->Add(this->create_again_button);
             this->Controls->Add(this->open_booking_button);
             this->Controls->Add(this->end_date_time_picker);
             this->Controls->Add(this->start_date_time_picker);
@@ -247,7 +248,7 @@ namespace CppCLRWinFormsProject
             start_date_time_picker->Enabled = false;
             end_date_time_picker->Enabled = false;
             create_button->Visible = false;
-            add_again_button->Visible = true;
+            create_again_button->Visible = true;
             open_booking_button->Visible = true;
         }
 
@@ -258,7 +259,7 @@ namespace CppCLRWinFormsProject
             start_date_time_picker->Enabled = true;
             end_date_time_picker->Enabled = true;
             create_button->Visible = true;
-            add_again_button->Visible = false;
+            create_again_button->Visible = false;
             open_booking_button->Visible = false;
         }
 
@@ -289,14 +290,14 @@ namespace CppCLRWinFormsProject
             }
 
             if (startDate < today) {
-                MessageBox::Show("Start date cannot be later than today.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+                MessageBox::Show("Start date cannot be erlier than today.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
                 return false;
             }
 
             return true;
         }
 
-    private: System::Void add_again_button_Click(System::Object^ sender, System::EventArgs^ e) {
+    private: System::Void create_again_button_Click(System::Object^ sender, System::EventArgs^ e) {
         clear_fields();
         enable_fields();
     }

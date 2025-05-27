@@ -1,7 +1,7 @@
 #include "pch.h"
+#include "room_search_screen.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
-#include "room_search_screen.h"
 #include "iroom.h"
 #include "TVector.h"
 
@@ -20,6 +20,7 @@ System::Void CppCLRWinFormsProject::RoomSearchScreen::saerch_button_Click(System
         }
 
         delete _search_result;
+        _search_result = nullptr;
     }
 
     _search_result = _rooms->find(number, "", beds_count, state);

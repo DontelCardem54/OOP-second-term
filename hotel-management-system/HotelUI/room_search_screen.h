@@ -17,8 +17,7 @@ namespace CppCLRWinFormsProject
     {
         IWindow^ _parent;
         IRooms* _rooms;
-    private: System::Windows::Forms::Label^ result_label;
-           TVector<IRoom*>* _search_result;
+        TVector<IRoom*>* _search_result;
     public:
         RoomSearchScreen(IWindow^ parent, IRooms* rooms) : _parent(parent), _rooms(rooms) {
             InitializeComponent();
@@ -48,6 +47,7 @@ namespace CppCLRWinFormsProject
         }
 
     protected:
+    private: System::Windows::Forms::Label^ result_label;
     private: System::Windows::Forms::Label^ room_number_label;
     private: System::Windows::Forms::FlowLayoutPanel^ search_result_panel;
     private: System::Windows::Forms::Button^ back_button;
@@ -109,7 +109,6 @@ namespace CppCLRWinFormsProject
             this->back_button->TabIndex = 15;
             this->back_button->Text = L"Back";
             this->back_button->UseVisualStyleBackColor = true;
-            this->back_button->Click += gcnew System::EventHandler(this, &RoomSearchScreen::clear_screen);
             this->back_button->Click += gcnew System::EventHandler(this, &RoomSearchScreen::back_button_Click);
             // 
             // saerch_button
@@ -158,7 +157,7 @@ namespace CppCLRWinFormsProject
             // 
             // beds_count_text_box
             // 
-            this->beds_count_text_box->Location = System::Drawing::Point(347, 121);
+            this->beds_count_text_box->Location = System::Drawing::Point(347, 152);
             this->beds_count_text_box->Name = L"beds_count_text_box";
             this->beds_count_text_box->Size = System::Drawing::Size(122, 20);
             this->beds_count_text_box->TabIndex = 22;
@@ -172,7 +171,7 @@ namespace CppCLRWinFormsProject
             // 
             // number_text_box
             // 
-            this->number_text_box->Location = System::Drawing::Point(347, 152);
+            this->number_text_box->Location = System::Drawing::Point(347, 121);
             this->number_text_box->Name = L"number_text_box";
             this->number_text_box->Size = System::Drawing::Size(122, 20);
             this->number_text_box->TabIndex = 24;

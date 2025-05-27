@@ -4,18 +4,18 @@
 #include <string>
 
 System::Void CppCLRWinFormsProject::CreateBookingScreen::create_button_Click(System::Object^ sender, System::EventArgs^ e) {
-    System::String^ date = start_date_time_picker->Text;
-    std::string start_date = msclr::interop::marshal_as<std::string>(date);
-    date = end_date_time_picker->Text;
-    std::string end_date = msclr::interop::marshal_as<std::string>(date);
-    std::string guest_passport = msclr::interop::marshal_as<std::string>(guest_passport_text_box->Text);
-    std::string room_number = msclr::interop::marshal_as<std::string>(room_number_text_box->Text);
     std::string employe_passport = msclr::interop::marshal_as<std::string>(staff_passport_text_box->Text);
 
     if (!check_dates(start_date_time_picker->Text, end_date_time_picker->Text)) {
         return;
     }
 
+    System::String^ date = start_date_time_picker->Text;
+    std::string start_date = msclr::interop::marshal_as<std::string>(date);
+    date = end_date_time_picker->Text;
+    std::string end_date = msclr::interop::marshal_as<std::string>(date);
+
+    std::string guest_passport = msclr::interop::marshal_as<std::string>(guest_passport_text_box->Text);
     IGuest* guest = _guests->get_by_passport(guest_passport);
 
     if (guest == nullptr) {
@@ -23,6 +23,7 @@ System::Void CppCLRWinFormsProject::CreateBookingScreen::create_button_Click(Sys
         return;
     }
 
+    std::string room_number = msclr::interop::marshal_as<std::string>(room_number_text_box->Text);
     IRoom* room = _rooms->get_by_room_number(room_number);
 
     if (room == nullptr) {
@@ -30,7 +31,13 @@ System::Void CppCLRWinFormsProject::CreateBookingScreen::create_button_Click(Sys
         delete guest;
         return;
     }
-
+      
+    if (!room->is_available()) {
+        MessageBox::Show(this, "Room not available.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+        delete guest;
+        delete room;
+        return;
+    }
 
     try {
         if (_current_booking != nullptr) {
@@ -38,6 +45,7 @@ System::Void CppCLRWinFormsProject::CreateBookingScreen::create_button_Click(Sys
         }
 
         _current_booking = _bookings->add(start_date, end_date, guest->id(), room->id(), employe_passport);
+        room->change_state(RoomState::Occupied);
     }
     catch (const std::exception& ex) {
         MessageBox::Show(this,

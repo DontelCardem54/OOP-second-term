@@ -70,9 +70,9 @@ namespace CppCLRWinFormsProject
             // 
             // back_button
             // 
-            this->back_button->Location = System::Drawing::Point(339, 320);
+            this->back_button->Location = System::Drawing::Point(326, 336);
             this->back_button->Name = L"back_button";
-            this->back_button->Size = System::Drawing::Size(109, 43);
+            this->back_button->Size = System::Drawing::Size(100, 40);
             this->back_button->TabIndex = 19;
             this->back_button->Text = L"Back";
             this->back_button->UseVisualStyleBackColor = true;
@@ -98,30 +98,33 @@ namespace CppCLRWinFormsProject
             // 
             // book_room_button
             // 
-            this->book_room_button->Location = System::Drawing::Point(464, 367);
+            this->book_room_button->Location = System::Drawing::Point(432, 336);
             this->book_room_button->Name = L"book_room_button";
-            this->book_room_button->Size = System::Drawing::Size(100, 44);
+            this->book_room_button->Size = System::Drawing::Size(100, 40);
             this->book_room_button->TabIndex = 16;
-            this->book_room_button->Text = L"Забронировать";
+            this->book_room_button->Text = L"Create  booking";
             this->book_room_button->UseVisualStyleBackColor = true;
+            this->book_room_button->Click += gcnew System::EventHandler(this, &RoomScreen::book_room_button_Click);
             // 
             // remove_from_repair_button
             // 
-            this->remove_from_repair_button->Location = System::Drawing::Point(339, 369);
+            this->remove_from_repair_button->Location = System::Drawing::Point(220, 336);
             this->remove_from_repair_button->Name = L"remove_from_repair_button";
-            this->remove_from_repair_button->Size = System::Drawing::Size(109, 42);
+            this->remove_from_repair_button->Size = System::Drawing::Size(100, 40);
             this->remove_from_repair_button->TabIndex = 15;
-            this->remove_from_repair_button->Text = L"Снять с ремонта";
+            this->remove_from_repair_button->Text = L"Remove from repair";
             this->remove_from_repair_button->UseVisualStyleBackColor = true;
+            this->remove_from_repair_button->Click += gcnew System::EventHandler(this, &RoomScreen::remove_from_repair_button_Click);
             // 
             // close_for_repair_button
             // 
-            this->close_for_repair_button->Location = System::Drawing::Point(220, 369);
+            this->close_for_repair_button->Location = System::Drawing::Point(220, 336);
             this->close_for_repair_button->Name = L"close_for_repair_button";
-            this->close_for_repair_button->Size = System::Drawing::Size(100, 42);
+            this->close_for_repair_button->Size = System::Drawing::Size(100, 40);
             this->close_for_repair_button->TabIndex = 14;
-            this->close_for_repair_button->Text = L"Закрыть на ремонт";
+            this->close_for_repair_button->Text = L"Close for repair";
             this->close_for_repair_button->UseVisualStyleBackColor = true;
+            this->close_for_repair_button->Click += gcnew System::EventHandler(this, &RoomScreen::close_for_repair_button_Click);
             // 
             // beds_count_label
             // 
@@ -185,5 +188,10 @@ namespace CppCLRWinFormsProject
         System::Void set_room(IRoom* room);
     private:
         System::Void fill_screen();
+    private: System::Void close_for_repair_button_Click(System::Object^ sender, System::EventArgs^ e);
+    private: System::Void remove_from_repair_button_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void book_room_button_Click(System::Object^ sender, System::EventArgs^ e) {
+    _parent->ShowCreateBookingScreen();
+}
 };
 }

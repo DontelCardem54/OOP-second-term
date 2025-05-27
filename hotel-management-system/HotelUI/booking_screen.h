@@ -3,6 +3,7 @@
 #include "ibooking.h"
 #include "iwindow.h"
 #include "iguests.h"
+#include "irooms.h"
 
 namespace CppCLRWinFormsProject
 {
@@ -15,12 +16,19 @@ namespace CppCLRWinFormsProject
 
     public ref class BookingScreen : UserControl
     {
-    private: 
+    private:
         IWindow^ _parent;
         IBooking* _booking;
         IGuests* _guests;
+        IRooms* _rooms;
+        bool _has_unsaved_changes = false;
+        bool _is_editing = false;
+
+        bool _is_start_date_changed = false;
+        bool _is_end_date_changed = false;
+
     public:
-        BookingScreen(IWindow^ parent) : _parent(parent) {
+        BookingScreen(IWindow^ parent, IGuests* guests, IRooms* rooms) : _parent(parent), _guests(guests), _rooms(rooms) {
             InitializeComponent();
             //
             //TODO: Add the constructor code here
@@ -40,7 +48,7 @@ namespace CppCLRWinFormsProject
         }
     private: System::Windows::Forms::DateTimePicker^ end_date_picker;
     private: System::Windows::Forms::DateTimePicker^ start_date_picker;
-    private: System::Windows::Forms::Label^ state_label;
+    private: System::Windows::Forms::Label^ room_label;
     private: System::Windows::Forms::Label^ staff_label;
     private: System::Windows::Forms::Label^ guest_label;
     private: System::Windows::Forms::Label^ creation_time_label;
@@ -62,7 +70,7 @@ namespace CppCLRWinFormsProject
         {
             this->end_date_picker = (gcnew System::Windows::Forms::DateTimePicker());
             this->start_date_picker = (gcnew System::Windows::Forms::DateTimePicker());
-            this->state_label = (gcnew System::Windows::Forms::Label());
+            this->room_label = (gcnew System::Windows::Forms::Label());
             this->staff_label = (gcnew System::Windows::Forms::Label());
             this->guest_label = (gcnew System::Windows::Forms::Label());
             this->creation_time_label = (gcnew System::Windows::Forms::Label());
@@ -78,32 +86,36 @@ namespace CppCLRWinFormsProject
             // end_date_picker
             // 
             this->end_date_picker->Enabled = false;
-            this->end_date_picker->Location = System::Drawing::Point(325, 210);
+            this->end_date_picker->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+            this->end_date_picker->Location = System::Drawing::Point(379, 211);
             this->end_date_picker->Name = L"end_date_picker";
             this->end_date_picker->Size = System::Drawing::Size(127, 20);
             this->end_date_picker->TabIndex = 35;
+            this->end_date_picker->ValueChanged += gcnew System::EventHandler(this, &BookingScreen::end_date_Changed);
             // 
             // start_date_picker
             // 
             this->start_date_picker->Enabled = false;
-            this->start_date_picker->Location = System::Drawing::Point(325, 180);
+            this->start_date_picker->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+            this->start_date_picker->Location = System::Drawing::Point(379, 181);
             this->start_date_picker->Name = L"start_date_picker";
             this->start_date_picker->Size = System::Drawing::Size(127, 20);
             this->start_date_picker->TabIndex = 34;
+            this->start_date_picker->ValueChanged += gcnew System::EventHandler(this, &BookingScreen::start_date_Changed);
             // 
-            // state_label
+            // room_label
             // 
-            this->state_label->AutoSize = true;
-            this->state_label->Location = System::Drawing::Point(259, 322);
-            this->state_label->Name = L"state_label";
-            this->state_label->Size = System::Drawing::Size(38, 13);
-            this->state_label->TabIndex = 33;
-            this->state_label->Text = L"State: ";
+            this->room_label->AutoSize = true;
+            this->room_label->Location = System::Drawing::Point(313, 323);
+            this->room_label->Name = L"room_label";
+            this->room_label->Size = System::Drawing::Size(76, 13);
+            this->room_label->TabIndex = 33;
+            this->room_label->Text = L"Room number:";
             // 
             // staff_label
             // 
             this->staff_label->AutoSize = true;
-            this->staff_label->Location = System::Drawing::Point(258, 296);
+            this->staff_label->Location = System::Drawing::Point(312, 297);
             this->staff_label->Name = L"staff_label";
             this->staff_label->Size = System::Drawing::Size(108, 13);
             this->staff_label->TabIndex = 32;
@@ -112,7 +124,7 @@ namespace CppCLRWinFormsProject
             // guest_label
             // 
             this->guest_label->AutoSize = true;
-            this->guest_label->Location = System::Drawing::Point(255, 262);
+            this->guest_label->Location = System::Drawing::Point(309, 263);
             this->guest_label->Name = L"guest_label";
             this->guest_label->Size = System::Drawing::Size(91, 13);
             this->guest_label->TabIndex = 31;
@@ -121,7 +133,7 @@ namespace CppCLRWinFormsProject
             // creation_time_label
             // 
             this->creation_time_label->AutoSize = true;
-            this->creation_time_label->Location = System::Drawing::Point(249, 137);
+            this->creation_time_label->Location = System::Drawing::Point(303, 138);
             this->creation_time_label->Name = L"creation_time_label";
             this->creation_time_label->Size = System::Drawing::Size(77, 13);
             this->creation_time_label->TabIndex = 30;
@@ -129,25 +141,28 @@ namespace CppCLRWinFormsProject
             // 
             // exit_edit_mode_button
             // 
-            this->exit_edit_mode_button->Location = System::Drawing::Point(350, 411);
+            this->exit_edit_mode_button->Location = System::Drawing::Point(344, 383);
             this->exit_edit_mode_button->Name = L"exit_edit_mode_button";
-            this->exit_edit_mode_button->Size = System::Drawing::Size(91, 45);
+            this->exit_edit_mode_button->Size = System::Drawing::Size(102, 45);
             this->exit_edit_mode_button->TabIndex = 29;
             this->exit_edit_mode_button->Text = L"Exit edit mode";
             this->exit_edit_mode_button->UseVisualStyleBackColor = true;
+            this->exit_edit_mode_button->Visible = false;
+            this->exit_edit_mode_button->Click += gcnew System::EventHandler(this, &BookingScreen::exit_edit_mode_button_Click);
             // 
             // edit_mode_button
             // 
-            this->edit_mode_button->Location = System::Drawing::Point(233, 411);
+            this->edit_mode_button->Location = System::Drawing::Point(287, 412);
             this->edit_mode_button->Name = L"edit_mode_button";
-            this->edit_mode_button->Size = System::Drawing::Size(93, 45);
+            this->edit_mode_button->Size = System::Drawing::Size(102, 45);
             this->edit_mode_button->TabIndex = 28;
             this->edit_mode_button->Text = L"Edit mode";
             this->edit_mode_button->UseVisualStyleBackColor = true;
+            this->edit_mode_button->Click += gcnew System::EventHandler(this, &BookingScreen::edit_mode_button_Click);
             // 
             // close_and_pay_button
             // 
-            this->close_and_pay_button->Location = System::Drawing::Point(284, 358);
+            this->close_and_pay_button->Location = System::Drawing::Point(287, 355);
             this->close_and_pay_button->Name = L"close_and_pay_button";
             this->close_and_pay_button->Size = System::Drawing::Size(102, 47);
             this->close_and_pay_button->TabIndex = 27;
@@ -156,18 +171,19 @@ namespace CppCLRWinFormsProject
             // 
             // cancel_button
             // 
-            this->cancel_button->Location = System::Drawing::Point(417, 358);
+            this->cancel_button->Location = System::Drawing::Point(404, 355);
             this->cancel_button->Name = L"cancel_button";
-            this->cancel_button->Size = System::Drawing::Size(115, 43);
+            this->cancel_button->Size = System::Drawing::Size(102, 47);
             this->cancel_button->TabIndex = 26;
             this->cancel_button->Text = L"Cancel";
             this->cancel_button->UseVisualStyleBackColor = true;
+            this->cancel_button->Click += gcnew System::EventHandler(this, &BookingScreen::cancel_button_Click);
             // 
             // back_button
             // 
-            this->back_button->Location = System::Drawing::Point(460, 411);
+            this->back_button->Location = System::Drawing::Point(404, 412);
             this->back_button->Name = L"back_button";
-            this->back_button->Size = System::Drawing::Size(106, 45);
+            this->back_button->Size = System::Drawing::Size(102, 45);
             this->back_button->TabIndex = 25;
             this->back_button->Text = L"Back";
             this->back_button->UseVisualStyleBackColor = true;
@@ -176,7 +192,7 @@ namespace CppCLRWinFormsProject
             // start_date_label
             // 
             this->start_date_label->AutoSize = true;
-            this->start_date_label->Location = System::Drawing::Point(251, 186);
+            this->start_date_label->Location = System::Drawing::Point(305, 187);
             this->start_date_label->Name = L"start_date_label";
             this->start_date_label->Size = System::Drawing::Size(56, 13);
             this->start_date_label->TabIndex = 23;
@@ -185,7 +201,7 @@ namespace CppCLRWinFormsProject
             // end_date_label
             // 
             this->end_date_label->AutoSize = true;
-            this->end_date_label->Location = System::Drawing::Point(251, 216);
+            this->end_date_label->Location = System::Drawing::Point(305, 217);
             this->end_date_label->Name = L"end_date_label";
             this->end_date_label->Size = System::Drawing::Size(56, 13);
             this->end_date_label->TabIndex = 24;
@@ -196,7 +212,7 @@ namespace CppCLRWinFormsProject
             this->BackColor = System::Drawing::SystemColors::Control;
             this->Controls->Add(this->end_date_picker);
             this->Controls->Add(this->start_date_picker);
-            this->Controls->Add(this->state_label);
+            this->Controls->Add(this->room_label);
             this->Controls->Add(this->staff_label);
             this->Controls->Add(this->guest_label);
             this->Controls->Add(this->creation_time_label);
@@ -214,13 +230,108 @@ namespace CppCLRWinFormsProject
 
         }
 
-        public:
-            System::Void set_booking(IBooking* booking);
+    public:
+        System::Void set_booking(IBooking* booking);
 
-        private:
-            System::Void fill_screen();
+    private:
+        System::Void fill_screen();
+        System::Void save_changes();
+        System::Void enable_fields() {
+            start_date_picker->Enabled = true;
+            end_date_picker->Enabled = true;
+        }
+        System::Void disable_fields() {
+            start_date_picker->Enabled = false;
+            end_date_picker->Enabled = false;
+        }
+        System::Void disable_edit_mode() {
+            _is_editing = false;
+
+            close_and_pay_button->Visible = true;
+            cancel_button->Visible = true;
+            back_button->Visible = true;
+            edit_mode_button->Visible = true;
+            exit_edit_mode_button->Visible = false;
+
+            disable_fields();
+        }
+        System::Void discard_changes() {
+            fill_screen();
+            _has_unsaved_changes = false;
+        }
+        System::Void start_date_Changed(Object^ sender, EventArgs^ e) {
+            if (_is_editing)
+            {
+                _has_unsaved_changes = true;
+                _is_start_date_changed = true;
+            }
+        }
+        System::Void end_date_Changed(Object^ sender, EventArgs^ e)
+        {
+            if (_is_editing)
+            {
+                _has_unsaved_changes = true;
+                _is_end_date_changed = true;
+            }
+        }
+        System::Void cancel_booking() {
+            disable_fields();
+            this->close_and_pay_button->Enabled = false;
+            this->cancel_button->Enabled = false;
+            this->edit_mode_button->Enabled = false;
+            this->exit_edit_mode_button->Enabled = false;
+            _booking->remove();
+            _booking = nullptr;
+        }
     private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
         _parent->GoBack();
     }
-};
+    private: System::Void edit_mode_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        enable_fields();
+
+        close_and_pay_button->Visible = false;
+        cancel_button->Visible = false;
+        back_button->Visible = false;
+        edit_mode_button->Visible = false;
+        exit_edit_mode_button->Visible = true;
+        _is_editing = true;
+    }
+    private: System::Void exit_edit_mode_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        if (_has_unsaved_changes)
+        {
+            System::Windows::Forms::DialogResult result = MessageBox::Show(
+                "Save the changes?",
+                "Exit Edit Mode",
+                MessageBoxButtons::YesNoCancel,
+                MessageBoxIcon::Question);
+
+            if (result == System::Windows::Forms::DialogResult::Yes)
+            {
+                save_changes();
+                disable_edit_mode();
+            }
+            else if (result == System::Windows::Forms::DialogResult::No)
+            {
+                discard_changes();
+                disable_edit_mode();
+            }
+        }
+        else
+        {
+            disable_edit_mode();
+        }
+    }
+    private: System::Void cancel_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        System::Windows::Forms::DialogResult result = MessageBox::Show(
+            "Cancel a booking?",
+            "Canceling confirmation",
+            MessageBoxButtons::YesNo,
+            MessageBoxIcon::Question);
+
+        if (result == System::Windows::Forms::DialogResult::Yes)
+        {
+            cancel_booking();
+        }
+    }
+    };
 }

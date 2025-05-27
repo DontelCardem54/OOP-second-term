@@ -355,11 +355,11 @@ namespace CppCLRWinFormsProject
         System::Void disable_edit_mode() {
             _is_editing = false;
 
-            this->back_button->Visible = true;
-            this->view_booking_history_button->Visible = true;
-            this->delete_button->Visible = true;
-            this->edit_mode_button->Visible = true;
-            this->exit_edit_mode_button->Visible = false;
+            back_button->Visible = true;
+            view_booking_history_button->Visible = true;
+            delete_button->Visible = true;
+            edit_mode_button->Visible = true;
+            exit_edit_mode_button->Visible = false;
 
             disable_fields();
         }

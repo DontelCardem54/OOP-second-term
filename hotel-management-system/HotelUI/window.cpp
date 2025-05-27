@@ -29,7 +29,7 @@ void CppCLRWinFormsProject::Window::InitializeScreens() {
     this->room_screen = (gcnew RoomScreen(this));
     this->Controls->Add(this->room_screen);
 
-    this->booking_screen = (gcnew BookingScreen(this));
+    this->booking_screen = (gcnew BookingScreen(this, csvguests, csvrooms));
     this->Controls->Add(this->booking_screen);
 
     this->bookings_screen = (gcnew BookingsScreen(this));
@@ -38,7 +38,7 @@ void CppCLRWinFormsProject::Window::InitializeScreens() {
     this->create_booking_screen = (gcnew CreateBookingScreen(this, csvbookings, csvguests, csvrooms));
     this->Controls->Add(this->create_booking_screen);
 
-    this->booking_search_screen = (gcnew BookingSearchScreen(this));
+    this->booking_search_screen = (gcnew BookingSearchScreen(this, csvbookings, csvguests));
     this->Controls->Add(this->booking_search_screen);
 }
 
