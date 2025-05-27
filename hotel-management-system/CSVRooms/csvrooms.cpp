@@ -31,7 +31,7 @@ TVector<IRoom*>* CSVRooms::find(
         std::getline(ss, current_beds_count, ',');
         std::getline(ss, current_state, ',');
 
-        bool number_match = (number.empty() || current_number == state);
+        bool number_match = (number.empty() || current_number == number);
         bool category_match = (category_id.empty() || current_category_id == category_id);
         bool beds_match = (beds_count.empty() || current_beds_count == beds_count);
         bool state_match = (state.empty() || current_state == state);
@@ -63,6 +63,30 @@ IRoom* CSVRooms::get_by_room_number(const std::string& number)
         std::getline(ss, current_number, ',');
 
         if (current_number == number) {
+            return new CSVRoom(id);
+        }
+    }
+
+    return nullptr;
+}
+
+IRoom* CSVRooms::get_by_id(const std::string& id)
+{
+    std::ifstream irooms_file(_path_to_rooms);
+
+    if (!irooms_file.is_open()) {
+        throw std::runtime_error("Не удалось открыть файл для чтения");
+    }
+
+    std::string line;
+
+    while (std::getline(irooms_file, line)) {
+        std::istringstream ss(line);
+        std::string current_id;
+
+        std::getline(ss, current_id, ',');
+
+        if (current_id == id) {
             return new CSVRoom(id);
         }
     }

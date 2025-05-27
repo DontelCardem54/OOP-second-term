@@ -21,6 +21,7 @@ public:
     void clear();
 
     IRoom* get_by_room_number(const std::string& number) override;
+    IRoom* get_by_id(const std::string& id) override;
 private:
     void update_id();
 };

@@ -22,6 +22,7 @@ public:
         const std::string& beds_count,
         const std::string& state) = 0;
     virtual IRoom* get_by_room_number(const std::string& number) = 0;
+    virtual IRoom* get_by_id(const std::string& id) = 0;
 
     virtual ~IRooms() = default;
 };

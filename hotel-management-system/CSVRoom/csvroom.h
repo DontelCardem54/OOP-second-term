@@ -24,6 +24,10 @@ public:
     std::string category_price() override;
     std::string beds_count() override;
     std::string state() override;
+    bool is_available() override;
+    bool is_occupied() override;
+    void change_state(RoomState new_state) override;
+
 
 private:
     void upload_data();
