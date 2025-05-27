@@ -1,5 +1,7 @@
 #include "csvbookings.h"
 #include "csvbooking.h"
+#include "csvguest.h"
+#include "csvroom.h"
 
 #include <fstream>
 #include <sstream>
@@ -29,6 +31,48 @@ IBooking* CSVBookings::add(
         << employe_passport << "\n";
 
     return new CSVBooking(std::to_string(_current_id));
+}
+
+TVector<IBooking*>* CSVBookings::find(
+    const std::string& start_date,
+    const std::string& end_date,
+    const std::string& guest_passport,
+    const std::string& room_number) {
+
+    TVector<IBooking*>* bookings = new TVector<IBooking*>();
+    std::ifstream irooms_file(_path_to_bookings);
+
+    if (!irooms_file.is_open()) {
+        throw std::runtime_error("Couldn't open the file for reading");
+    }
+
+    std::string line;
+    std::getline(irooms_file, line);
+
+    while (std::getline(irooms_file, line)) {
+        std::istringstream ss(line);
+        std::string current_id, current_start_date, current_end_date, current_guest_id, current_room_id;
+
+        std::getline(ss, current_id, ',');
+        std::getline(ss, current_start_date, ',');
+        std::getline(ss, current_end_date, ',');
+        std::getline(ss, current_guest_id, ',');
+        std::getline(ss, current_room_id, ',');
+
+        CSVGuest guest(current_guest_id);
+        CSVRoom room(current_room_id);
+
+        bool start_date_match = (start_date.empty() || current_start_date == start_date);
+        bool end_date_match = (end_date.empty() || current_end_date == end_date);
+        bool guest_passport_match = (guest_passport.empty() || guest.passport() == guest_passport);
+        bool room_number_match = (room_number.empty() || room.number() == room_number);
+
+        if (start_date_match && end_date_match && guest_passport_match && room_number_match) {
+            bookings->push_back(new CSVBooking(current_id));
+        }
+    }
+
+    return bookings;
 }
 
 void CSVBookings::update_id() {

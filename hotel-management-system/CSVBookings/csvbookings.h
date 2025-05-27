@@ -12,8 +12,8 @@ private:
 public:
     CSVBookings();
     IBooking* add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&) override;
+    TVector<IBooking*>* find(const std::string&, const std::string&, const std::string&, const std::string&) override;
     /*void remove(const std::string& id) override {};
-    TVector<IBooking*>* find(const std::string&, const std::string&, const std::string&, const std::string&) override {};
     void clear() override {};*/
 private:
     void update_id();

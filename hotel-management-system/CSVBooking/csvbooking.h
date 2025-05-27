@@ -3,6 +3,7 @@
 #include <string>
 
 #include "ibooking.h"
+#include "csvroom.h"
 
 class CSVBooking : public IBooking {
 private:
@@ -16,11 +17,13 @@ private:
     std::string _employe_id;
     std::string _path_to_bookings = "..\\bookings.csv";
 
+    CSVRoom* _room;
 public:
     CSVBooking(const CSVBooking&) = delete;
     CSVBooking& operator=(const CSVBooking&) = delete;
 
     CSVBooking(const std::string&);
+    ~CSVBooking();
 
     std::string creation_time() override;
     std::string start_date() override;
@@ -28,7 +31,10 @@ public:
     std::string guest_id() override;
     std::string room_id() override;
     std::string employe_id()  override;
-    void remove() const override;
+    void remove() override;
+
+    void change_start_date(const std::string& new_start_date) override;
+    void change_end_date(const std::string& new_end_date) override;
 
 private:
     void upload_data();

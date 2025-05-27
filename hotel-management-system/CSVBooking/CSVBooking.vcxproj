@@ -105,14 +105,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,8 +138,14 @@
     <ClInclude Include="csvbooking.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSVRoom\CSVRoom.vcxproj">
+      <Project>{7d5c680b-b69d-4c3c-93ed-6f56e70c8521}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\IBooking\IBooking.vcxproj">
       <Project>{31ef4e34-1ef2-4d24-ad88-739716c26c8e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\IRoom\IRoom.vcxproj">
+      <Project>{8e1c490f-3a67-4eab-8695-63f145e91f69}</Project>
     </ProjectReference>
     <ProjectReference Include="..\TVector\TVector.vcxproj">
       <Project>{2716b139-11ac-4841-8701-1d19ffb9e9d3}</Project>

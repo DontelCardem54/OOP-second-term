@@ -105,14 +105,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,6 +140,12 @@
   <ItemGroup>
     <ProjectReference Include="..\CSVBooking\CSVBooking.vcxproj">
       <Project>{b36efa1d-4ebb-4959-8404-297762828074}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CSVGuest\CSVGuest.vcxproj">
+      <Project>{af09b852-16ba-4564-8d5b-8060036eca55}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CSVRoom\CSVRoom.vcxproj">
+      <Project>{7d5c680b-b69d-4c3c-93ed-6f56e70c8521}</Project>
     </ProjectReference>
     <ProjectReference Include="..\IBookings\IBookings.vcxproj">
       <Project>{7b928ca0-4dd9-47e7-8aea-23277c94eec9}</Project>
