@@ -80,13 +80,13 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;C:\GitHub\OOP-second-term\hotel-management-system\CSVBookings;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;C:\GitHub\OOP-second-term\hotel-management-system\CSVBookings;C:\GitHub\OOP-second-term\hotel-management-system\CSVFile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
-      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;C:\GitHub\OOP-second-term\hotel-management-system\CSVBookings;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\IGuests;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuest;C:\GitHub\OOP-second-term\hotel-management-system\CSVGuests;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\IRoom;C:\GitHub\OOP-second-term\hotel-management-system\IRooms;C:\GitHub\OOP-second-term\hotel-management-system\CSVRoom;C:\GitHub\OOP-second-term\hotel-management-system\CSVRooms;C:\GitHub\OOP-second-term\hotel-management-system\IBooking;C:\GitHub\OOP-second-term\hotel-management-system\IBookings;C:\GitHub\OOP-second-term\hotel-management-system\CSVBooking;C:\GitHub\OOP-second-term\hotel-management-system\CSVBookings;C:\GitHub\OOP-second-term\hotel-management-system\CSVFile;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -253,6 +253,9 @@
     </ProjectReference>
     <ProjectReference Include="..\CSVBooking\CSVBooking.vcxproj">
       <Project>{b36efa1d-4ebb-4959-8404-297762828074}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CSVFile\CSVFile.vcxproj">
+      <Project>{83cd8281-e4b7-46cc-8f6a-180145452e36}</Project>
     </ProjectReference>
     <ProjectReference Include="..\CSVGuests\CSVGuests.vcxproj">
       <Project>{e6a3fa40-62c3-4b2c-ad21-dd139184b481}</Project>

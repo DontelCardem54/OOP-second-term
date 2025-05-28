@@ -2,6 +2,7 @@
 
 #include <string>
 #include "irooms.h"
+#include "csvroom.h"
 #include "TVector.h"
 
 class CSVRooms : public IRooms {

@@ -105,14 +105,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\CSVFile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\GitHub\OOP-second-term\hotel-management-system\IGuest;C:\GitHub\OOP-second-term\hotel-management-system\TVector;C:\GitHub\OOP-second-term\hotel-management-system\CSVFile;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
@@ -136,6 +136,9 @@
     <ClInclude Include="csvguest.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSVFile\CSVFile.vcxproj">
+      <Project>{83cd8281-e4b7-46cc-8f6a-180145452e36}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\IGuest\IGuest.vcxproj">
       <Project>{ff514979-6972-4f0c-afb5-4710c2750c25}</Project>
     </ProjectReference>

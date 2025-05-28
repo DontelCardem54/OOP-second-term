@@ -3,6 +3,7 @@
 #include <string>
 
 #include "iguest.h"
+#include "csvfile.h"
 
 class CSVGuest : public IGuest {
 private:
@@ -14,6 +15,7 @@ private:
     std::string _patronymic;
     std::string _birth_date;
     std::string _email;
+    CSVFile _persons_file;
     std::string _path_to_persons = "..\\persons.csv";
     std::string _path_to_guests = "..\\guests.csv";
 
@@ -39,7 +41,7 @@ public:
     void change_birth_date(const std::string& new_birth_date) override;
     void change_email(const std::string& new_email) override;
 
-    void remove() const override;
+    void remove() override;
 
 private:
     void upload_data();

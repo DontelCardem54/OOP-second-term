@@ -3,9 +3,8 @@
 
 #include "csvguests.h"
 #include "TVector.h"
-#include "csvguest.h"
 
-CSVGuests::CSVGuests() : _current_id(0) {
+CSVGuests::CSVGuests() : _current_id(0), _persons_file("..\\persons.csv") {
     update_id();
 }
 
@@ -16,12 +15,6 @@ IGuest* CSVGuests::add(
     const std::string& patronymic,
     const std::string& birth_date,
     const std::string& email) {
-    std::ofstream persons_file(_path_to_persons, std::ios::app);
-
-    if (!persons_file.is_open()) {
-        throw std::runtime_error("Не удалось открыть файл для записи");
-    }
-
     if (!check_passport(passport)) {
         throw std::logic_error("Not correct passport");
     }
@@ -35,7 +28,8 @@ IGuest* CSVGuests::add(
     }
 
     _current_id++;
-    persons_file << _current_id << ","
+    std::ostringstream oss;
+    oss << _current_id << ","
         << passport << ","
         << name << ","
         << surname << ","
@@ -43,45 +37,13 @@ IGuest* CSVGuests::add(
         << birth_date << ","
         << email << "\n";
 
+    _persons_file.add_row(oss.str());
+
     return new CSVGuest(std::to_string(_current_id));
 }
 
 void CSVGuests::remove(const std::string& id) {
-    TVector<std::string> lines;
-    std::ifstream ipersons_file(_path_to_persons);
-
-    if (!ipersons_file.is_open()) {
-        throw std::runtime_error("Не удалось открыть файл для чтения");
-    }
-
-    std::string line;
-    bool found = false;
-
-    while (std::getline(ipersons_file, line)) {
-        std::istringstream ss(line);
-        std::string current_id;
-
-        std::getline(ss, current_id, ',');
-        if (current_id == id) {
-            found = true;
-            continue;
-        }
-
-        lines.push_back(line);
-    }
-
-    if (!found) {
-        throw std::runtime_error("Гость с таким ID не найден");
-    }
-
-    std::ofstream opersons_file(_path_to_persons);
-    if (!opersons_file.is_open()) {
-        throw std::runtime_error("Не удалось открыть файл для записи");
-    }
-
-    for (const auto& l : lines) {
-        opersons_file << l << "\n";
-    }
+    _persons_file.remove(id);
 }
 
 TVector<IGuest*>* CSVGuests::find(const std::string& passport) {
@@ -111,67 +73,25 @@ TVector<IGuest*>* CSVGuests::find(const std::string& passport) {
 }
 
 void CSVGuests::clear() {
-    std::ifstream ipersons_file(_path_to_persons);
-
-    if (!ipersons_file.is_open()) {
-        throw std::runtime_error("Не удалось открыть файл для чтения");
-    }
-
-    std::string line;
-    std::getline(ipersons_file, line);
-    std::ofstream opersons_file(_path_to_persons);
-
-    if (!opersons_file.is_open()) {
-        throw std::runtime_error("Не удалось открыть файл для записи");
-    }
-
-    opersons_file << line << "\n";
+    _persons_file.clear();
     _current_id = 0;
 }
 
 IGuest* CSVGuests::get_by_passport(const std::string& passport) {
-    std::ifstream ipersons_file(_path_to_persons);
+    std::string id;
 
-    if (!ipersons_file.is_open()) {
-        throw std::runtime_error("Не удалось открыть файл для чтения");
+    try {
+        id = _persons_file.get_value_by_column(1, passport, 0);
+        return new CSVGuest(id);
     }
-
-    std::string line;
-
-    while (std::getline(ipersons_file, line)) {
-        std::istringstream ss(line);
-        std::string current_passport;
-        std::string id;
-
-        std::getline(ss, id, ',');
-        std::getline(ss, current_passport, ',');
-
-        if (current_passport == passport) {
-            return new CSVGuest(id);
-        }
+    catch (const std::exception& ex) {
+        return nullptr;
     }
-
-    return nullptr;
 }
 
 IGuest* CSVGuests::get_by_id(const std::string& id) {
-    std::ifstream ipersons_file(_path_to_persons);
-
-    if (!ipersons_file.is_open()) {
-        throw std::runtime_error("Не удалось открыть файл для чтения");
-    }
-
-    std::string line;
-
-    while (std::getline(ipersons_file, line)) {
-        std::istringstream ss(line);
-        std::string current_id;
-
-        std::getline(ss, current_id, ',');
-
-        if (current_id == id) {
-            return new CSVGuest(id);
-        }
+    if (_persons_file.has_row(id)) {
+        return new CSVGuest(id);
     }
 
     return nullptr;
@@ -182,7 +102,7 @@ void CSVGuests::update_id() {
     std::string line, last_line;
 
     if (!file.is_open()) {
-        throw std::runtime_error("Не удалось открыть файл");
+        throw std::runtime_error("Couldn't open the file for reading");
     }
 
     while (std::getline(file, line)) {

@@ -10,7 +10,7 @@ public:
     virtual std::string patronymic() = 0;
     virtual std::string birth_date() = 0;
     virtual std::string email() = 0;
-    virtual void remove() const = 0;
+    virtual void remove() = 0;
 
     virtual void change_passport(const std::string& new_passport) = 0;
     virtual void change_name(const std::string& new_name) = 0;

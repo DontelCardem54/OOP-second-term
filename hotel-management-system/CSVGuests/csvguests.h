@@ -3,10 +3,13 @@
 #include <string>
 #include "TVector.h"
 #include "iguests.h"
+#include "csvguest.h"
+#include "csvfile.h"
 
 class CSVGuests : public IGuests {
 private:
     int _current_id;
+    CSVFile _persons_file;
     std::string _path_to_persons = "..\\persons.csv";
     std::string _path_to_guests = "..\\guests.csv";
 

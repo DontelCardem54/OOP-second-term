@@ -3,6 +3,10 @@
 #include <string>
 #include "TVector.h"
 #include "ibookings.h"
+#include "csvbooking.h"
+#include "csvguest.h"
+#include "csvroom.h"
+
 
 class CSVBookings : public IBookings {
 private:
